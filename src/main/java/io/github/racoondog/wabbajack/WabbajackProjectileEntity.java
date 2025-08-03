@@ -18,10 +18,13 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
         super(entityType, world);
     }
 
-    public WabbajackProjectileEntity(World world, LivingEntity owner, ItemStack stack) {
+    public WabbajackProjectileEntity(World world, double posX, double posY, double posZ) {
         this(Wabbajack.WABBAJACK_PROJECTILE, world);
+        this.setPosition(posX, posY, posZ);
+    }
 
-        this.setPosition(owner.getX(), owner.getEyeY() - 0.1f, owner.getZ());
+    public WabbajackProjectileEntity(World world, LivingEntity owner, ItemStack stack) {
+        this(world, owner.getX(), owner.getEyeY() - 0.1f, owner.getZ());
         this.setOwner(owner);
     }
 

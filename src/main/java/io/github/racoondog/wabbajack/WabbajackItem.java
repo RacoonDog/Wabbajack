@@ -70,6 +70,6 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-        return null;
+        return new WabbajackProjectileEntity(world, pos.getX(), pos.getY(), pos.getZ());
     }
 }

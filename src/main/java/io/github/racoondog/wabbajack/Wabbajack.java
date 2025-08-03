@@ -3,6 +3,7 @@ package io.github.racoondog.wabbajack;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -34,6 +35,8 @@ public class Wabbajack implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT)
 			.register(itemGroup -> itemGroup.addAfter(Items.MACE, WABBAJACK_ITEM.getDefaultStack()));
+
+		DispenserBlock.registerProjectileBehavior(WABBAJACK_ITEM);
 
 		WABBAJACK_PROJECTILE = register("wabbajack_projectile",
 			EntityType.Builder.<WabbajackProjectileEntity>create(WabbajackProjectileEntity::new, SpawnGroup.MISC)

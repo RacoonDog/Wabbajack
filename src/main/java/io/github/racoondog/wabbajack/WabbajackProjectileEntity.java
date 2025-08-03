@@ -19,7 +19,7 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
     }
 
     public WabbajackProjectileEntity(World world, double posX, double posY, double posZ) {
-        this(Wabbajack.WABBAJACK_PROJECTILE, world);
+        this(ModRegistry.WABBAJACK_PROJECTILE, world);
         this.setPosition(posX, posY, posZ);
     }
 
@@ -74,6 +74,6 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
 
     @Override
     public ItemStack getStack() {
-        return Wabbajack.WABBAJACK_PROJECTILE_ITEM.getDefaultStack();
+        return ModRegistry.WABBAJACK_PROJECTILE_ITEM.getDefaultStack();
     }
 }

@@ -30,7 +30,7 @@ public class Wabbajack implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT)
 			.register(itemGroup -> itemGroup.addAfter(Items.MACE, ModRegistry.WABBAJACK_ITEM.getDefaultStack()));
 
-		DispenserBlock.registerProjectileBehavior(ModRegistry.WABBAJACK_ITEM);
+		DispenserBlock.registerBehavior(ModRegistry.WABBAJACK_ITEM, new WabbajackDispenserBehavior());
 	}
 
 	private static <T extends Item> T register(String name, Function<Item.Settings, T> itemFactory, Item.Settings settings) {

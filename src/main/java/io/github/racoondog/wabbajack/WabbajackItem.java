@@ -23,6 +23,10 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 public class WabbajackItem extends Item implements ProjectileItem {
+    private final ProjectileItem.Settings projectileSettings = ProjectileItem.Settings.builder()
+        .uncertainty(2.5f)
+        .build();
+
     public WabbajackItem(Item.Settings settings) {
         super(settings);
     }
@@ -30,6 +34,11 @@ public class WabbajackItem extends Item implements ProjectileItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.wabbajack.wabbajack.desc").formatted(Formatting.DARK_RED));
+    }
+
+    @Override
+    public ProjectileItem.Settings getProjectileSettings() {
+        return this.projectileSettings;
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class Wabbajack implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, new Item.Settings());
+		WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC));
 		WABBAJACK_PROJECTILE_ITEM = register("wabbajack_projectile", Item::new, new Item.Settings());
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT)

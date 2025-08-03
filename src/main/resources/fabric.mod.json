@@ -1,31 +1,31 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "wabbajack",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Wabbajack",
+	"description": "And as for you, my little mortal minion... feel free to keep the Wabbajack. As a symbol of my... Oh, just take the damn thing.",
 	"authors": [
-		"Me!"
+		"Crosby"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/RacoonDog/Wabbajack",
+		"issues": "https://github.com/RacoonDog/Wabbajack/issues"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/wabbajack/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"io.github.racoondog.wabbajack.Wabbajack"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"io.github.racoondog.wabbajack.WabbajackClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"wabbajack.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "wabbajack.client.mixins.json",
 			"environment": "client"
 		}
 	],
@@ -34,8 +34,5 @@
 		"minecraft": "~1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

@@ -19,7 +19,10 @@ public final class ModRegistry {
     public final static EntityType<WabbajackProjectileEntity> WABBAJACK_PROJECTILE;
 
     static {
-        WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC));
+        Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC);
+        if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(Wabbajack.CONFIG.cooldownSeconds);
+
+        WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, wabbajackSettings);
         WABBAJACK_PROJECTILE_ITEM = register("wabbajack_projectile", Item::new, new Item.Settings());
 
         WABBAJACK_PROJECTILE = register("wabbajack_projectile",

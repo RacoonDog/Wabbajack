@@ -10,6 +10,10 @@ base {
 }
 
 repositories {
+	maven {
+		name = "sleeping town"
+		url = "https://repo.sleeping.town//"
+	}
 }
 
 loom {
@@ -32,7 +36,9 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
+
+	implementation "folk.sisby:kaleido-config:${project.kaleido_version}"
+	include "folk.sisby:kaleido-config:${project.kaleido_version}"
 }
 
 processResources {

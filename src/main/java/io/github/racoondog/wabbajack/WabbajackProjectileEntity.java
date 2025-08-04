@@ -7,13 +7,17 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public class WabbajackProjectileEntity extends ProjectileEntity implements FlyingItemEntity {
+    private static final DustParticleEffect TRAIL_EFFECT = new DustParticleEffect(Colors.RED, 1f);
+
     public WabbajackProjectileEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -45,6 +49,16 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
 
             if (hitResult.getType() != HitResult.Type.MISS && this.isAlive()) {
                 this.hitOrDeflect(hitResult);
+            }
+
+            if (this.getWorld().isClient() && (this.age & 1) == 0) {
+                this.getWorld().addParticleClient(
+                    TRAIL_EFFECT,
+                    this.getX(), this.getY(), this.getZ(),
+                    this.getVelocity().getX(),
+                    this.getVelocity().getY(),
+                    this.getVelocity().getZ()
+                );
             }
         } else {
             this.discard();

@@ -76,4 +76,9 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
     public ItemStack getStack() {
         return ModRegistry.WABBAJACK_PROJECTILE_ITEM.getDefaultStack();
     }
+
+    @Override
+    public boolean shouldRender(double distance) {
+        return this.age < 4 && distance < 12.25 ? false : super.shouldRender(distance);
+    }
 }

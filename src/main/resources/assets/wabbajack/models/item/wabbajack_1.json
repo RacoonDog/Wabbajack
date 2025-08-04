@@ -1,6 +1,6 @@
 {
     "parent": "wabbajack:item/wabbajack_base",
     "textures": {
-        "layer0": "wabbajack:item/wabbajack"
+        "layer0": "wabbajack:item/wabbajack_1"
     }
 }

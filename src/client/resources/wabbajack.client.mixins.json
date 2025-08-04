@@ -1,13 +1,14 @@
 {
-	"required": true,
-	"package": "io.github.racoondog.wabbajack.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+    "required": true,
+    "package": "io.github.racoondog.wabbajack.mixin.client",
+    "compatibilityLevel": "JAVA_21",
+    "client": [
+        "HeldItemRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
 	}
 }

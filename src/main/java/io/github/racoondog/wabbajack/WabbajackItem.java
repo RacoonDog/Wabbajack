@@ -43,7 +43,7 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.SPEAR;
+        return UseAction.BLOCK;
     }
 
     @Override

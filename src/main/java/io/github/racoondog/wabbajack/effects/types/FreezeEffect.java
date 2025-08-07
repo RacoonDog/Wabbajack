@@ -12,6 +12,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.TimeHelper;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +30,11 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
     @Override
     public ParticleEffect getParticleEffect() {
         return ParticleTypes.PALE_OAK_LEAVES;
+    }
+
+    @Override
+    public @Nullable SoundEvent getSound() {
+        return SoundEvents.BLOCK_GLASS_BREAK;
     }
 
     @Override

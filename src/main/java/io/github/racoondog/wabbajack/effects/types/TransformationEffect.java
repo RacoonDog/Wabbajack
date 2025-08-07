@@ -13,6 +13,8 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
@@ -23,6 +25,11 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     @Override
     public ParticleEffect getParticleEffect() {
         return new DustParticleEffect(Colors.RED, 1f);
+    }
+
+    @Override
+    public @Nullable SoundEvent getSound() {
+        return SoundEvents.ITEM_TRIDENT_THUNDER.value();
     }
 
     @Override

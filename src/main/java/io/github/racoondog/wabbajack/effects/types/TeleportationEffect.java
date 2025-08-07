@@ -8,6 +8,8 @@ import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +17,11 @@ public class TeleportationEffect extends AbstractEntityAreaOfEffect {
     @Override
     public ParticleEffect getParticleEffect() {
         return ParticleTypes.PORTAL;
+    }
+
+    @Override
+    public @Nullable SoundEvent getSound() {
+        return SoundEvents.ENTITY_PLAYER_TELEPORT;
     }
 
     @Override

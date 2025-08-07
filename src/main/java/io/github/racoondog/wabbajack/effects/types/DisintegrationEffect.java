@@ -23,7 +23,8 @@ public class DisintegrationEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         target.discard();
+        return true;
     }
 }

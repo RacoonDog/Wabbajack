@@ -34,8 +34,7 @@ public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
                 || !entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED)) continue;
 
             if (entity == hit || (entity.squaredDistanceTo(projectile) < areaSize * areaSize && ExplosionImpl.calculateReceivedDamage(projectile.getPos(), entity) > 0.1f)) {
-                affected = true;
-                this.onEntityEffect(world, projectile, collision, livingEntity, caster);
+                affected |= this.onEntityEffect(world, projectile, collision, livingEntity, caster);
             }
         }
 
@@ -52,5 +51,5 @@ public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
 
     public abstract ParticleEffect getParticleEffect();
 
-    public abstract void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster);
+    public abstract boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster);
 }

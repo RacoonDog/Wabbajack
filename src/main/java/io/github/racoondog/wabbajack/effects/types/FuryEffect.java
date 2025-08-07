@@ -46,12 +46,12 @@ public class FuryEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        if (caster == null) return;
-
-        int duration = ATTACK_DURATION.get(world.random);
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
+        if (caster == null) return false;
 
         if (target instanceof MobEntity mobEntity) {
+            int duration = ATTACK_DURATION.get(world.random);
+
             mobEntity.setTarget(caster);
             mobEntity.setAttacking(true);
 
@@ -67,14 +67,17 @@ public class FuryEffect extends AbstractEntityAreaOfEffect {
 
                 mobEntity.getAttributes().addTemporaryModifiers(createAttackDamageAttribute());
             }
+
+            target.getBrain().remember(MemoryModuleType.ATTACK_TARGET, caster, duration);
+            target.getBrain().forget(MemoryModuleType.AVOID_TARGET);
+            target.getBrain().forget(MemoryModuleType.IS_PANICKING);
+            target.getBrain().doExclusively(Activity.FIGHT);
+
+            ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ANGRY_VILLAGER);
+            return true;
+        } else {
+            return false;
         }
-
-        target.getBrain().remember(MemoryModuleType.ATTACK_TARGET, caster, duration);
-        target.getBrain().forget(MemoryModuleType.AVOID_TARGET);
-        target.getBrain().forget(MemoryModuleType.IS_PANICKING);
-        target.getBrain().doExclusively(Activity.FIGHT);
-
-        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ANGRY_VILLAGER);
     }
 
     private static HashMultimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> createAttackDamageAttribute() {

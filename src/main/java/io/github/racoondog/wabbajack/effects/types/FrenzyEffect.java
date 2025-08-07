@@ -47,12 +47,10 @@ public class FrenzyEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        if (caster == null) return;
-
-        int duration = FRENZY_DURATION.get(world.random);
-
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         if (target instanceof MobEntity mobEntity) {
+            int duration = FRENZY_DURATION.get(world.random);
+
             mobEntity.setTarget(caster);
             mobEntity.setAttacking(true);
 
@@ -68,13 +66,16 @@ public class FrenzyEffect extends AbstractEntityAreaOfEffect {
 
                 mobEntity.getAttributes().addTemporaryModifiers(createAttackDamageAttribute());
             }
+
+            target.getBrain().forget(MemoryModuleType.AVOID_TARGET);
+            target.getBrain().forget(MemoryModuleType.IS_PANICKING);
+            target.getBrain().doExclusively(Activity.FIGHT);
+
+            ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.WITCH);
+            return true;
+        } else {
+            return false;
         }
-
-        target.getBrain().forget(MemoryModuleType.AVOID_TARGET);
-        target.getBrain().forget(MemoryModuleType.IS_PANICKING);
-        target.getBrain().doExclusively(Activity.FIGHT);
-
-        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.WITCH);
     }
 
     private static HashMultimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> createAttackDamageAttribute() {

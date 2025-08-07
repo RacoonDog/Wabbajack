@@ -38,10 +38,10 @@ public class FearEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        int duration = AVOID_DURATION.get(world.random);
-
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         if (target instanceof MobEntity mobEntity) {
+            int duration = AVOID_DURATION.get(world.random);
+
             mobEntity.setTarget(null);
             mobEntity.setAttacking(false);
 
@@ -50,14 +50,17 @@ public class FearEffect extends AbstractEntityAreaOfEffect {
                 goalSelector.clear(goal -> goal instanceof WabbajackGoal);
                 goalSelector.add(1, new FearFleeGoal(pae, caster, duration));
             }
+
+            target.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+            target.getBrain().remember(MemoryModuleType.AVOID_TARGET, caster, duration);
+            target.getBrain().remember(MemoryModuleType.IS_PANICKING, true, duration);
+            target.getBrain().doExclusively(Activity.AVOID);
+
+            ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.SOUL);
+            return true;
+        } else {
+            return false;
         }
-
-        target.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-        target.getBrain().remember(MemoryModuleType.AVOID_TARGET, caster, duration);
-        target.getBrain().remember(MemoryModuleType.IS_PANICKING, true, duration);
-        target.getBrain().doExclusively(Activity.AVOID);
-
-        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.SOUL);
     }
 
     @Override

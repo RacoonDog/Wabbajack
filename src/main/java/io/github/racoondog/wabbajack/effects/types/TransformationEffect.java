@@ -26,13 +26,16 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         target.discard();
 
         Entity entity = getRandomEntity(target.getType()).spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
 
         if (entity != null) {
             ParticleHelper.spawnEmotionParticles(world, entity, ParticleTypes.RAID_OMEN);
+            return true;
+        } else {
+            return false;
         }
     }
 

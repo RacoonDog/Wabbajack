@@ -31,7 +31,7 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
+    public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         int duration = FREEZE_DURATION.get(world.random);
 
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, duration, 9, true, false));
@@ -61,5 +61,7 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
                 world.setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState()); // todo prevent watering
             }
         }
+
+        return true;
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -33,8 +34,9 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        target.discard();
+        if (target instanceof PlayerEntity) return false;
 
+        target.discard();
         Entity entity = getRandomEntity(world.random, target.getType()).spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
 
         if (entity != null) {

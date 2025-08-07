@@ -14,6 +14,8 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
@@ -27,6 +29,11 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
     @Override
     public ParticleEffect getParticleEffect() {
         return new DustParticleEffect(Colors.LIGHT_PINK, 1f);
+    }
+
+    @Override
+    public @Nullable SoundEvent getSound() {
+        return SoundEvents.ENTITY_WITCH_CELEBRATE;
     }
 
     @Override

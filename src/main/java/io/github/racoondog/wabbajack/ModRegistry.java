@@ -1,5 +1,8 @@
 package io.github.racoondog.wabbajack;
 
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -14,9 +17,10 @@ import net.minecraft.util.Rarity;
 import java.util.function.Function;
 
 public final class ModRegistry {
-    public final static WabbajackItem WABBAJACK_ITEM;
-    public final static Item WABBAJACK_PROJECTILE_ITEM;
-    public final static EntityType<WabbajackProjectileEntity> WABBAJACK_PROJECTILE;
+    public static final WabbajackItem WABBAJACK_ITEM;
+    public static final Item WABBAJACK_PROJECTILE_ITEM;
+    public static final EntityType<WabbajackProjectileEntity> WABBAJACK_PROJECTILE;
+    public static final FrostBlock FROST_BLOCK;
 
     static {
         Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC);
@@ -33,6 +37,8 @@ public final class ModRegistry {
                 .maxTrackingRange(4)
                 .trackingTickInterval(20)
         );
+
+        FROST_BLOCK = register("frost", FrostBlock::new, AbstractBlock.Settings.copy(Blocks.FROSTED_ICE));
     }
 
     private ModRegistry() {}
@@ -48,5 +54,11 @@ public final class ModRegistry {
     private static <T extends Entity> EntityType<T> register(String name, EntityType.Builder<T> builder) {
         RegistryKey<EntityType<?>> key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(Wabbajack.MOD_ID, name));
         return Registry.register(Registries.ENTITY_TYPE, key, builder.build(key));
+    }
+
+    private static <T extends Block> T register(String name, Function<AbstractBlock.Settings, T> blockFactory, AbstractBlock.Settings settings) {
+        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Wabbajack.MOD_ID, name));
+        T block = blockFactory.apply(settings.registryKey(key));
+        return Registry.register(Registries.BLOCK, key, block);
     }
 }

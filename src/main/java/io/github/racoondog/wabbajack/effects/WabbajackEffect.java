@@ -42,5 +42,9 @@ public abstract class WabbajackEffect {
         entity.effect = this;
     }
 
+    public boolean requiresCaster() {
+        return false;
+    }
+
     public abstract void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster);
 }

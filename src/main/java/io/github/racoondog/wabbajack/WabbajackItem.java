@@ -59,7 +59,7 @@ public class WabbajackItem extends Item implements ProjectileItem {
             }
 
             if (world instanceof ServerWorld serverWorld) {
-                WabbajackEffect effect = Wabbajack.EFFECTS.get(world.random);
+                WabbajackEffect effect = Wabbajack.getEffect(world, true);
                 effect.onItemUse(serverWorld, playerEntity, stack);
 
                 return true;

@@ -65,4 +65,9 @@ public class FearEffect extends AbstractEntityAreaOfEffect {
 
         ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.SOUL);
     }
+
+    @Override
+    public boolean requiresCaster() {
+        return true;
+    }
 }

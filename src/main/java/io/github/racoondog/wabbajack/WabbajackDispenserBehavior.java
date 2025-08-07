@@ -19,7 +19,7 @@ public class WabbajackDispenserBehavior extends ItemDispenserBehavior {
         Direction direction = pointer.state().get(DispenserBlock.FACING);
         Position position = projectileSettings.positionFunction().getDispensePosition(pointer, direction);
 
-        Wabbajack.EFFECTS.get(world.random).onDispense(world, direction, position, stack);
+        Wabbajack.getEffect(world, false).onDispense(world, direction, position, stack);
 
         return stack;
     }

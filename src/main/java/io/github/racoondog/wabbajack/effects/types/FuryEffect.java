@@ -91,4 +91,9 @@ public class FuryEffect extends AbstractEntityAreaOfEffect {
         ));
         return multimap;
     }
+
+    @Override
+    public boolean requiresCaster() {
+        return true;
+    }
 }

@@ -10,6 +10,7 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.util.collection.Pool;
+import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ public class Wabbajack implements ModInitializer {
 		MOD_ID,
 		WabbajackConfig.class
 	);
-	public static Pool<WabbajackEffect> EFFECTS;
+	private static Pool<WabbajackEffect> EFFECTS;
 
 	@Override
 	public void onInitialize() {
@@ -55,5 +56,20 @@ public class Wabbajack implements ModInitializer {
 		if (CONFIG.transformationEffect.enabled) builder.add(new TransformationEffect(), CONFIG.transformationEffect.weight);
 
 		EFFECTS = builder.build();
+	}
+
+	public static WabbajackEffect getEffect(World world, boolean hasCaster) {
+		WabbajackEffect effect;
+		int depth = 0;
+		do {
+			effect = EFFECTS.get(world.random);
+			depth++;
+		} while (effect.requiresCaster() && !hasCaster && depth < 10);
+
+		if (depth == 10) {
+			LOGGER.warn("No valid The Wabbajack! effects matching config.");
+		}
+
+		return effect;
 	}
 }

@@ -54,13 +54,15 @@ public class WabbajackItem extends Item implements ProjectileItem {
     public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity playerEntity) {
             int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
-            if (i < 10) {
+            if (i < 10 || stack.willBreakNextUse()) {
                 return false;
             }
 
             if (world instanceof ServerWorld serverWorld) {
                 WabbajackEffect effect = Wabbajack.getEffect(world, true);
                 effect.onItemUse(serverWorld, playerEntity, stack);
+
+                stack.damage(1, playerEntity);
 
                 return true;
             }

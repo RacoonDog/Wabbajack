@@ -23,8 +23,8 @@ public final class ModRegistry {
     public static final FrostBlock FROST_BLOCK;
 
     static {
-        Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC);
-        if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(Wabbajack.CONFIG.cooldownSeconds);
+        Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC).maxDamage(80);
+        if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(1);
 
         WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, wabbajackSettings);
         WABBAJACK_PROJECTILE_ITEM = register("wabbajack_projectile", Item::new, new Item.Settings());

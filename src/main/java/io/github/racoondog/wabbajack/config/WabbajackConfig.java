@@ -7,9 +7,6 @@ import folk.sisby.kaleido.lib.quiltconfig.api.annotations.FloatRange;
 public class WabbajackConfig extends WrappedConfig {
     public boolean cooldown = false;
 
-    @FloatRange(min = 0.1f, max = Float.MAX_VALUE)
-    public float cooldownSeconds = 1.0f;
-
     @DisplayName("Area of Effect Size")
     @FloatRange(min = 0.1f, max = Float.MAX_VALUE)
     public float aoeSize = 3.0f;

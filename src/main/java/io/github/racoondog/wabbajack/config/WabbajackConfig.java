@@ -14,7 +14,13 @@ public class WabbajackConfig extends WrappedConfig {
     @FloatRange(min = 0.1f, max = Float.MAX_VALUE)
     public float aoeSize = 3.0f;
 
-    public AbstractEffectConfig attributeScrambleEffect = new AbstractEffectConfig();
+    public AttributeScrambleEffectConfig attributeScrambleEffect = new AttributeScrambleEffectConfig();
+    public static class AttributeScrambleEffectConfig extends AbstractEffectConfig {
+        public boolean enabled = true;
+        public int weight = 1;
+        public int attributes = 7;
+        public double magnitude = 3.0d;
+    }
     public AbstractEffectConfig disintegrationEffect = new AbstractEffectConfig();
     public AbstractEffectConfig fearEffect = new AbstractEffectConfig();
     public FireballEffectConfig fireballEffect = new FireballEffectConfig();

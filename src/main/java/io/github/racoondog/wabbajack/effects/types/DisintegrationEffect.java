@@ -1,6 +1,5 @@
 package io.github.racoondog.wabbajack.effects.types;
 
-import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
 import net.minecraft.entity.LivingEntity;
@@ -21,11 +20,6 @@ public class DisintegrationEffect extends AbstractEntityAreaOfEffect {
     @Override
     public @Nullable SoundEvent getSound() {
         return SoundEvents.ENTITY_BREEZE_DEATH;
-    }
-
-    @Override
-    public float getAreaSize() {
-        return Wabbajack.CONFIG.disintegrationEffect.areaSize;
     }
 
     @Override

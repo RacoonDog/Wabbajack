@@ -1,7 +1,6 @@
 package io.github.racoondog.wabbajack.effects.types;
 
 import io.github.racoondog.wabbajack.ParticleHelper;
-import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
 import io.github.racoondog.wabbajack.effects.goals.FearFleeGoal;
@@ -36,11 +35,6 @@ public class FearEffect extends AbstractEntityAreaOfEffect {
     @Override
     public @Nullable SoundEvent getSound() {
         return SoundEvents.ENTITY_WARDEN_AGITATED;
-    }
-
-    @Override
-    public float getAreaSize() {
-        return Wabbajack.CONFIG.fearEffect.areaSize;
     }
 
     @Override

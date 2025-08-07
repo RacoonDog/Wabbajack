@@ -1,6 +1,7 @@
 package io.github.racoondog.wabbajack.config;
 
 import folk.sisby.kaleido.api.WrappedConfig;
+import folk.sisby.kaleido.lib.quiltconfig.api.annotations.DisplayName;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.FloatRange;
 
 public class WabbajackConfig extends WrappedConfig {
@@ -8,6 +9,10 @@ public class WabbajackConfig extends WrappedConfig {
 
     @FloatRange(min = 0.1f, max = Float.MAX_VALUE)
     public float cooldownSeconds = 1.0f;
+
+    @DisplayName("Area of Effect Size")
+    @FloatRange(min = 0.1f, max = Float.MAX_VALUE)
+    public float aoeSize = 3.0f;
 
     public AbstractEffectConfig attributeScrambleEffect = new AbstractEffectConfig();
     public AbstractEffectConfig disintegrationEffect = new AbstractEffectConfig();
@@ -22,7 +27,6 @@ public class WabbajackConfig extends WrappedConfig {
     public static class FreezeEffectConfig extends AbstractEffectConfig {
         public boolean enabled = true;
         public int weight = 1;
-        public float areaSize = 3.0f;
         public boolean placesBlocks = true;
     }
     public AbstractEffectConfig frenzyEffect = new AbstractEffectConfig();

@@ -47,11 +47,6 @@ public class FrenzyEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public float getAreaSize() {
-        return 3f;
-    }
-
-    @Override
     public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         if (caster == null) return;
 

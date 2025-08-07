@@ -41,11 +41,6 @@ public class FuryEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public float getAreaSize() {
-        return Wabbajack.CONFIG.furyEffect.areaSize;
-    }
-
-    @Override
     public @Nullable SoundEvent getSound() {
         return SoundEvents.ENTITY_ZOMBIFIED_PIGLIN_ANGRY;
     }

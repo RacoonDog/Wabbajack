@@ -1,6 +1,5 @@
 package io.github.racoondog.wabbajack.effects.types;
 
-import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
 import net.minecraft.component.type.ConsumableComponents;
@@ -16,11 +15,6 @@ public class TeleportationEffect extends AbstractEntityAreaOfEffect {
     @Override
     public ParticleEffect getParticleEffect() {
         return ParticleTypes.PORTAL;
-    }
-
-    @Override
-    public float getAreaSize() {
-        return Wabbajack.CONFIG.teleportationEffect.areaSize;
     }
 
     @Override

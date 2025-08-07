@@ -31,11 +31,6 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
     }
 
     @Override
-    public float getAreaSize() {
-        return Wabbajack.CONFIG.freezeEffect.areaSize;
-    }
-
-    @Override
     public void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         int duration = FREEZE_DURATION.get(world.random);
 

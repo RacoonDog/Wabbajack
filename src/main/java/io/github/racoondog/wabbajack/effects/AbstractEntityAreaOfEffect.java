@@ -2,6 +2,7 @@ package io.github.racoondog.wabbajack.effects;
 
 import io.github.racoondog.wabbajack.DataTags;
 import io.github.racoondog.wabbajack.ParticleHelper;
+import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +24,7 @@ public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
             hit = entityHitResult.getEntity();
         }
 
-        float areaSize = this.getAreaSize();
+        float areaSize = Wabbajack.CONFIG.aoeSize;
 
         boolean affected = false;
         for (Entity entity : world.getOtherEntities(projectile, projectile.getBoundingBox().expand(areaSize))) {
@@ -38,7 +39,7 @@ public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
             }
         }
 
-        ParticleHelper.spawnAreaParticles(world, collision, this.getAreaSize(), this.getParticleEffect());
+        ParticleHelper.spawnAreaParticles(world, collision, areaSize, this.getParticleEffect());
         if (affected && this.getSound() != null) {
             world.playSound(null, collision.getPos().getX(), collision.getPos().getY(), collision.getPos().getZ(),
                 this.getSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -50,8 +51,6 @@ public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
     }
 
     public abstract ParticleEffect getParticleEffect();
-
-    public abstract float getAreaSize();
 
     public abstract void onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster);
 }

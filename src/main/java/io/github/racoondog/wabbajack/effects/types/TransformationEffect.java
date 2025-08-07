@@ -36,11 +36,6 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
         }
     }
 
-    @Override
-    public float getAreaSize() {
-        return 3f;
-    }
-
     private static EntityType<? extends Entity> getRandomEntity(EntityType<?> current) {
         EntityType<?> entityType = null;
 

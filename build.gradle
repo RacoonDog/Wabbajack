@@ -12,7 +12,7 @@ base {
 repositories {
 	maven {
 		name = "sleeping town"
-		url = "https://repo.sleeping.town//"
+		url = "https://repo.sleeping.town/"
 	}
 }
 
@@ -20,7 +20,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"modid" {
+		"wabbajack" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

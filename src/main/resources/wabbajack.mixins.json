@@ -3,6 +3,8 @@
 	"package": "io.github.racoondog.wabbajack.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"AttributeContainerAccessor",
+		"MobEntityAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

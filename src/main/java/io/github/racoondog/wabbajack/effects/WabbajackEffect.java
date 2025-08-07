@@ -1,0 +1,46 @@
+package io.github.racoondog.wabbajack.effects;
+
+import io.github.racoondog.wabbajack.ModRegistry;
+import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ProjectileItem;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Position;
+import org.jetbrains.annotations.Nullable;
+
+public abstract class WabbajackEffect {
+    public void onItemUse(ServerWorld world, PlayerEntity user, ItemStack stack) {
+        ProjectileItem.Settings projectileSettings = ModRegistry.WABBAJACK_ITEM.getProjectileSettings();
+
+        WabbajackProjectileEntity entity = ProjectileEntity.spawnWithVelocity(WabbajackProjectileEntity::new, world, stack, user, 0.0F, projectileSettings.power(), projectileSettings.uncertainty());
+        entity.effect = this;
+
+        world.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.0F);
+    }
+
+    public void onDispense(ServerWorld world, Direction direction, Position position, ItemStack stack) {
+        ProjectileItem.Settings projectileSettings = ModRegistry.WABBAJACK_ITEM.getProjectileSettings();
+
+        WabbajackProjectileEntity entity = (WabbajackProjectileEntity) ProjectileEntity.spawnWithVelocity(
+            ModRegistry.WABBAJACK_ITEM.createEntity(world, position, stack, direction),
+            world,
+            stack,
+            direction.getOffsetX(),
+            direction.getOffsetY(),
+            direction.getOffsetZ(),
+            projectileSettings.power(),
+            projectileSettings.uncertainty()
+        );
+
+        entity.effect = this;
+    }
+
+    public abstract void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster);
+}

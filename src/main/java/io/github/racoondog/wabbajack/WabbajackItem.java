@@ -1,5 +1,6 @@
 package io.github.racoondog.wabbajack;
 
+import io.github.racoondog.wabbajack.effects.WabbajackEffect;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,8 +11,6 @@ import net.minecraft.item.ProjectileItem;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -60,9 +59,9 @@ public class WabbajackItem extends Item implements ProjectileItem {
             }
 
             if (world instanceof ServerWorld serverWorld) {
-                ProjectileEntity.spawnWithVelocity(WabbajackProjectileEntity::new, serverWorld, stack, playerEntity, 0.0F, 2.5F, 1.0F);
+                WabbajackEffect effect = Wabbajack.EFFECTS.get(world.random);
+                effect.onItemUse(serverWorld, playerEntity, stack);
 
-                serverWorld.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.0F);
                 return true;
             }
             return false;

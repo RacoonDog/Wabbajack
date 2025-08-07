@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "show_notification": true,
+    "pattern": [
+        "S",
+        "N",
+        "N"
+    ],
+    "key": {
+        "S": "minecraft:nether_star",
+        "N": "minecraft:netherite_ingot"
+    },
+    "result": {
+        "id": "wabbajack:wabbajack"
+    }
+}

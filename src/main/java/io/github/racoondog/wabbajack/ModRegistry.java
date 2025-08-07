@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -23,7 +24,7 @@ public final class ModRegistry {
     public static final FrostBlock FROST_BLOCK;
 
     static {
-        Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC).maxDamage(80);
+        Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC).maxDamage(80).repairable(Items.NETHERITE_INGOT);
         if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(1);
 
         WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, wabbajackSettings);

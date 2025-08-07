@@ -17,9 +17,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TransformationEffect extends AbstractEntityAreaOfEffect {
     @Override
@@ -36,7 +35,7 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         target.discard();
 
-        Entity entity = getRandomEntity(target.getType()).spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
+        Entity entity = getRandomEntity(world.random, target.getType()).spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
 
         if (entity != null) {
             ParticleHelper.spawnEmotionParticles(world, entity, ParticleTypes.RAID_OMEN);
@@ -46,7 +45,7 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
         }
     }
 
-    private static EntityType<? extends Entity> getRandomEntity(EntityType<?> current) {
+    private static EntityType<? extends Entity> getRandomEntity(Random random, EntityType<?> current) {
         EntityType<?> entityType = null;
 
         int depth = 0;
@@ -55,7 +54,7 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
                 return EntityType.TADPOLE;
             }
 
-            entityType = Registries.ENTITY_TYPE.get(ThreadLocalRandom.current().nextInt(Registries.ENTITY_TYPE.size()));
+            entityType = Registries.ENTITY_TYPE.get(random.nextInt(Registries.ENTITY_TYPE.size()));
         }
 
         return entityType;

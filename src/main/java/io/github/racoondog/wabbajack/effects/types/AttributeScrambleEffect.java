@@ -17,11 +17,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
     @Override
@@ -34,7 +34,7 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
         int attributes = Wabbajack.CONFIG.attributeScrambleEffect.attributes;
 
         HashMultimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> modifiers = HashMultimap.create(attributes, 1);
-        for (RegistryEntry<EntityAttribute> attribute : getRandomAttributes(attributes)) {
+        for (RegistryEntry<EntityAttribute> attribute : getRandomAttributes(world.random, attributes)) {
             if (target.getAttributes().hasAttribute(attribute)) {
                 modifiers.put(attribute, new EntityAttributeModifier(
                     Identifier.of(Wabbajack.MOD_ID, "attribute_scrambling"),
@@ -47,7 +47,7 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
         return !modifiers.isEmpty();
     }
 
-    private static Iterable<RegistryEntry<EntityAttribute>> getRandomAttributes(int count) {
+    private static Iterable<RegistryEntry<EntityAttribute>> getRandomAttributes(Random random, int count) {
         if (count >= Registries.ATTRIBUTE.size()) {
             return Registries.ATTRIBUTE.iterateEntries(DataTags.CAN_SCRAMBLE);
         }
@@ -60,7 +60,7 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
                 break;
             }
 
-            Optional<RegistryEntry.Reference<EntityAttribute>> entry = Registries.ATTRIBUTE.getEntry(ThreadLocalRandom.current().nextInt(Registries.ATTRIBUTE.size()));
+            Optional<RegistryEntry.Reference<EntityAttribute>> entry = Registries.ATTRIBUTE.getEntry(random.nextInt(Registries.ATTRIBUTE.size()));
             if (entry.isPresent() && entry.get().isIn(DataTags.CAN_SCRAMBLE)) {
                 set.add(entry.get());
             }

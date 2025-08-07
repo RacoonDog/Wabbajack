@@ -9,6 +9,8 @@ import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
@@ -52,10 +54,13 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
             }
         }
 
+        if (target instanceof PlayerEntity && modifiers.containsKey(EntityAttributes.SCALE)) {
+            modifiers.putAll(EntityAttributes.CAMERA_DISTANCE, modifiers.get(EntityAttributes.SCALE));
+        }
+
         target.getAttributes().addTemporaryModifiers(modifiers);
 
-        boolean dinnerbone = world.random.nextInt(100) < 5;
-        if (dinnerbone) {
+        if (!(target instanceof PlayerEntity) && world.random.nextInt(100) < 5) {
             target.setCustomName(Text.empty()
                 .append(Text.literal("D").withColor(0xFFABAB))
                 .append(Text.literal("i").withColor(0xFFD9AB))
@@ -68,9 +73,11 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
                 .append(Text.literal("n").withColor(0xD1ABFF))
                 .append(Text.literal("e").withColor(0xFFABFF))
             );
+
+            return true;
         }
 
-        return !modifiers.isEmpty() || dinnerbone;
+        return !modifiers.isEmpty();
     }
 
     private static Iterable<RegistryEntry<EntityAttribute>> getRandomAttributes(Random random, int count) {

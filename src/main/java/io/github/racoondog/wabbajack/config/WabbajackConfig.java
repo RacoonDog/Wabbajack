@@ -15,7 +15,7 @@ public class WabbajackConfig extends WrappedConfig {
     public float aoeSize = 3.0f;
 
     public AttributeScrambleEffectConfig attributeScrambleEffect = new AttributeScrambleEffectConfig();
-    public static class AttributeScrambleEffectConfig extends AbstractEffectConfig {
+    public static class AttributeScrambleEffectConfig implements WrappedConfig.Section {
         public boolean enabled = true;
         public int weight = 1;
         public int attributes = 7;
@@ -30,7 +30,7 @@ public class WabbajackConfig extends WrappedConfig {
         public float explosionPower = 3.0f;
     }
     public FreezeEffectConfig freezeEffect = new FreezeEffectConfig();
-    public static class FreezeEffectConfig extends AbstractEffectConfig {
+    public static class FreezeEffectConfig implements WrappedConfig.Section {
         public boolean enabled = true;
         public int weight = 1;
         public boolean placesBlocks = true;

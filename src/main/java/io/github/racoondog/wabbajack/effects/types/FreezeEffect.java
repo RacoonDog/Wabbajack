@@ -39,7 +39,6 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
         int duration = FREEZE_DURATION.get(world.random);
 
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, duration, 9, true, false));
-        target.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, duration, 127, true, false));
         target.setFrozenTicks(duration);
 
         if (Wabbajack.CONFIG.freezeEffect.placesBlocks) {

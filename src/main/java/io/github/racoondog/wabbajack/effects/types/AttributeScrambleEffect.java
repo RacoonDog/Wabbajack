@@ -16,6 +16,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
@@ -45,13 +46,31 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
             if (target.getAttributes().hasAttribute(attribute)) {
                 modifiers.put(attribute, new EntityAttributeModifier(
                     Identifier.of(Wabbajack.MOD_ID, "attribute_scrambling"),
-                    world.random.nextDouble() * Wabbajack.CONFIG.attributeScrambleEffect.magnitude,
+                    world.random.nextDouble() * Wabbajack.CONFIG.attributeScrambleEffect.magnitude * (world.random.nextBoolean() ? 1 : -1),
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                 ));
             }
         }
 
-        return !modifiers.isEmpty();
+        target.getAttributes().addTemporaryModifiers(modifiers);
+
+        boolean dinnerbone = world.random.nextInt(100) < 5;
+        if (dinnerbone) {
+            target.setCustomName(Text.empty()
+                .append(Text.literal("D").withColor(0xFFABAB))
+                .append(Text.literal("i").withColor(0xFFD9AB))
+                .append(Text.literal("n").withColor(0xF5FFAB))
+                .append(Text.literal("n").withColor(0xC7FFAB))
+                .append(Text.literal("e").withColor(0xABFFBD))
+                .append(Text.literal("r").withColor(0xABFFED))
+                .append(Text.literal("b").withColor(0xABE3FF))
+                .append(Text.literal("o").withColor(0xABB5FF))
+                .append(Text.literal("n").withColor(0xD1ABFF))
+                .append(Text.literal("e").withColor(0xFFABFF))
+            );
+        }
+
+        return !modifiers.isEmpty() || dinnerbone;
     }
 
     private static Iterable<RegistryEntry<EntityAttribute>> getRandomAttributes(Random random, int count) {

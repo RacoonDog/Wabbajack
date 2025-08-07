@@ -38,7 +38,7 @@ public final class ModRegistry {
                 .trackingTickInterval(20)
         );
 
-        FROST_BLOCK = register("frost", FrostBlock::new, AbstractBlock.Settings.copy(Blocks.FROSTED_ICE));
+        FROST_BLOCK = register("frost", FrostBlock::new, AbstractBlock.Settings.copy(Blocks.FROSTED_ICE).suffocates(Blocks::never));
     }
 
     private ModRegistry() {}

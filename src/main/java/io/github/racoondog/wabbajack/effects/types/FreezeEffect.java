@@ -48,8 +48,8 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
 
             for (int x = MathHelper.floor(box.minX); x <= MathHelper.ceil(box.maxX); x++) {
-                for (int y = MathHelper.floor(box.minY); y <= MathHelper.ceil(box.maxX); y++) {
-                    for (int z = MathHelper.floor(box.minZ); z <= MathHelper.ceil(box.maxX); z++) {
+                for (int y = MathHelper.floor(box.minY); y <= MathHelper.ceil(box.maxY); y++) {
+                    for (int z = MathHelper.floor(box.minZ); z <= MathHelper.ceil(box.maxZ); z++) {
                         mutable.set(x, y, z);
                         BlockState state = world.getBlockState(mutable);
 

@@ -29,7 +29,7 @@ public final class ModRegistry {
 
     static {
         Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC).maxDamage(80).repairable(Items.NETHERITE_INGOT);
-        if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(1);
+        if (Wabbajack.CONFIG.cooldown) wabbajackSettings.useCooldown(Wabbajack.CONFIG.cooldownSeconds);
 
         WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, wabbajackSettings);
         WABBAJACK_PROJECTILE_ITEM = register("wabbajack_projectile", Item::new, new Item.Settings());

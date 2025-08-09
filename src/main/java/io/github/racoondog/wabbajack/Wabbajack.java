@@ -1,6 +1,5 @@
 package io.github.racoondog.wabbajack;
 
-import io.github.racoondog.wabbajack.config.WabbajackConfig;
 import io.github.racoondog.wabbajack.effects.WabbajackEffect;
 import io.github.racoondog.wabbajack.effects.types.*;
 import net.fabricmc.api.ModInitializer;
@@ -40,18 +39,18 @@ public class Wabbajack implements ModInitializer {
 	public static void updateEffectPool() {
 		Pool.Builder<WabbajackEffect> builder = Pool.builder();
 
-		if (CONFIG.attributeScrambleEffect.enabled) builder.add(new AttributeScrambleEffect(), CONFIG.attributeScrambleEffect.weight);
-		if (CONFIG.disintegrationEffect.enabled) builder.add(new DisintegrationEffect(), CONFIG.disintegrationEffect.weight);
-		if (CONFIG.fearEffect.enabled) builder.add(new FearEffect(), CONFIG.fearEffect.weight);
-		if (CONFIG.fireballEffect.enabled) builder.add(new FireballEffect(), CONFIG.fireballEffect.weight);
-		if (CONFIG.freezeEffect.enabled) builder.add(new FreezeEffect(), CONFIG.freezeEffect.weight);
-		if (CONFIG.frenzyEffect.enabled) builder.add(new FrenzyEffect(), CONFIG.frenzyEffect.weight);
-		if (CONFIG.furyEffect.enabled) builder.add(new FuryEffect(), CONFIG.furyEffect.weight);
-		if (CONFIG.healEffect.enabled) builder.add(new HealEffect(), CONFIG.healEffect.weight);
-		if (CONFIG.magicMissilesEffect.enabled) builder.add(new MagicMissilesEffect(), CONFIG.magicMissilesEffect.weight);
-		if (CONFIG.teleportationEffect.enabled) builder.add(new TeleportationEffect(), CONFIG.teleportationEffect.weight);
-		if (CONFIG.thunderboltEffect.enabled) builder.add(new ThunderboltEffect(), CONFIG.thunderboltEffect.weight);
-		if (CONFIG.transformationEffect.enabled) builder.add(new TransformationEffect(), CONFIG.transformationEffect.weight);
+		if (CONFIG.effectToggles.attributeScramble) builder.add(new AttributeScrambleEffect(), CONFIG.effectWeights.attributeScramble);
+		if (CONFIG.effectToggles.disintegration) builder.add(new DisintegrationEffect(), CONFIG.effectWeights.disintegration);
+		if (CONFIG.effectToggles.fear) builder.add(new FearEffect(), CONFIG.effectWeights.fear);
+		if (CONFIG.effectToggles.fireball) builder.add(new FireballEffect(), CONFIG.effectWeights.fireball);
+		if (CONFIG.effectToggles.freeze) builder.add(new FreezeEffect(), CONFIG.effectWeights.freeze);
+		if (CONFIG.effectToggles.frenzy) builder.add(new FrenzyEffect(), CONFIG.effectWeights.frenzy);
+		if (CONFIG.effectToggles.fury) builder.add(new FuryEffect(), CONFIG.effectWeights.fury);
+		if (CONFIG.effectToggles.heal) builder.add(new HealEffect(), CONFIG.effectWeights.heal);
+		if (CONFIG.effectToggles.magicMissiles) builder.add(new MagicMissilesEffect(), CONFIG.effectWeights.magicMissiles);
+		if (CONFIG.effectToggles.teleportation) builder.add(new TeleportationEffect(), CONFIG.effectWeights.teleportation);
+		if (CONFIG.effectToggles.thunderbolt) builder.add(new ThunderboltEffect(), CONFIG.effectWeights.thunderbolt);
+		if (CONFIG.effectToggles.transformation) builder.add(new TransformationEffect(), CONFIG.effectWeights.transformation);
 
 		EFFECTS = builder.build();
 	}

@@ -2,10 +2,8 @@ package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.MagicMissileProjectileEntity;
 import io.github.racoondog.wabbajack.Wabbajack;
-import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.spells.WabbajackSpell;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -13,7 +11,8 @@ import net.minecraft.item.ProjectileItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Position;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -41,33 +40,47 @@ public class MagicMissilesSpell extends WabbajackSpell {
         int missiles = Wabbajack.CONFIG.magicMissilesSpell.projectiles;
         spawnProjectile(world, user, stack);
         if (missiles > 1) {
-            RUNNING_MAGIC_MISSILES.computeIfAbsent(world, key -> new ObjectArrayList<>()).add(new MagicMissiles(world, user, stack, missiles - 1));
+            RUNNING_MAGIC_MISSILES.computeIfAbsent(world, key -> new ObjectArrayList<>()).add(new MagicMissiles(() -> spawnProjectile(world, user, stack), missiles - 1));
         }
     }
 
     @Override
-    public void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster) {}
+    public void onDispense(ServerWorld world, Direction direction, Position position, ItemStack stack) {
+        int missiles = Wabbajack.CONFIG.magicMissilesSpell.projectiles;
+        spawnFromDispenser(world, direction, position, stack);
+        if (missiles > 1) {
+            RUNNING_MAGIC_MISSILES.computeIfAbsent(world, key -> new ObjectArrayList<>()).add(new MagicMissiles(() -> spawnFromDispenser(world, direction, position, stack), missiles - 1));
+        }
+    }
 
     private static void spawnProjectile(ServerWorld world, PlayerEntity user, ItemStack stack) {
         world.playSoundFromEntity(null, user, SoundEvents.BLOCK_AMETHYST_BLOCK_PLACE, SoundCategory.PLAYERS, 1.0F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
         ProjectileEntity.spawnWithVelocity(MagicMissileProjectileEntity::new, world, stack, user, 0.0F, PROJECTILE_SETTINGS.power(), PROJECTILE_SETTINGS.uncertainty());
     }
 
+    private static void spawnFromDispenser(ServerWorld world, Direction direction, Position position, ItemStack stack) {
+        ProjectileEntity.spawnWithVelocity(
+            new MagicMissileProjectileEntity(world, position.getX(), position.getY(), position.getZ()),
+            world, stack,
+            direction.getOffsetX(),
+            direction.getOffsetY(),
+            direction.getOffsetZ(),
+            PROJECTILE_SETTINGS.power(),
+            PROJECTILE_SETTINGS.uncertainty()
+        );
+    }
+
     public static class MagicMissiles {
-        private final ServerWorld world;
-        private final PlayerEntity caster;
-        private final ItemStack stack;
+        private final Runnable spawner;
         private int missilesRemaining;
 
-        public MagicMissiles(ServerWorld world, PlayerEntity caster, ItemStack stack, int missiles) {
-            this.world = world;
-            this.caster = caster;
-            this.stack = stack;
+        public MagicMissiles(Runnable spawner, int missiles) {
+            this.spawner = spawner;
             this.missilesRemaining = missiles;
         }
 
         public void tick() {
-            spawnProjectile(this.world, this.caster, this.stack);
+            this.spawner.run();
             this.missilesRemaining--;
         }
 

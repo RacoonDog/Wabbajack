@@ -50,7 +50,7 @@ public abstract class WabbajackSpell {
         return false;
     }
 
-    public abstract void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster);
+    public void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster) {}
 
     protected static void discard(ServerWorld world, Entity entity, @Nullable RegistryKey<DamageType> damageType) {
         if (entity instanceof PlayerEntity || entity instanceof Tameable tameable && tameable.getOwnerReference() != null) {

@@ -21,7 +21,9 @@ import java.util.function.Function;
 public final class ModRegistry {
     public static final WabbajackItem WABBAJACK_ITEM;
     public static final Item WABBAJACK_PROJECTILE_ITEM;
+    public static final Item MAGIC_MISSILE_PROJECTILE_ITEM;
     public static final EntityType<WabbajackProjectileEntity> WABBAJACK_PROJECTILE;
+    public static final EntityType<MagicMissileProjectileEntity> MAGIC_MISSILE_PROJECTILE;
     public static final FrostBlock FROST_BLOCK;
     public static final RegistryKey<DamageType> DISINTEGRATED = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wabbajack.MOD_ID, "disintegrated"));
     public static final RegistryKey<DamageType> MADNESS = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wabbajack.MOD_ID, "madness"));
@@ -33,9 +35,18 @@ public final class ModRegistry {
 
         WABBAJACK_ITEM = register("wabbajack", WabbajackItem::new, wabbajackSettings);
         WABBAJACK_PROJECTILE_ITEM = register("wabbajack_projectile", Item::new, new Item.Settings());
+        MAGIC_MISSILE_PROJECTILE_ITEM = register("magic_missile_projectile", Item::new, new Item.Settings());
 
         WABBAJACK_PROJECTILE = register("wabbajack_projectile",
             EntityType.Builder.<WabbajackProjectileEntity>create(WabbajackProjectileEntity::new, SpawnGroup.MISC)
+                .dropsNothing()
+                .dimensions(0.5f, 0.5f)
+                .eyeHeight(0.25F)
+                .maxTrackingRange(4)
+                .trackingTickInterval(20)
+        );
+        MAGIC_MISSILE_PROJECTILE = register("magic_missile_projectile",
+            EntityType.Builder.<MagicMissileProjectileEntity>create(MagicMissileProjectileEntity::new, SpawnGroup.MISC)
                 .dropsNothing()
                 .dimensions(0.5f, 0.5f)
                 .eyeHeight(0.25F)

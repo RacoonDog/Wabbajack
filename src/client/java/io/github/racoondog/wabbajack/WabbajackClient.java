@@ -10,6 +10,7 @@ public class WabbajackClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityRendererRegistry.register(ModRegistry.WABBAJACK_PROJECTILE, FlyingItemEntityRenderer::new);
+		EntityRendererRegistry.register(ModRegistry.MAGIC_MISSILE_PROJECTILE, FlyingItemEntityRenderer::new);
 		BlockRenderLayerMap.putBlock(ModRegistry.FROST_BLOCK, BlockRenderLayer.TRANSLUCENT);
 	}
 }

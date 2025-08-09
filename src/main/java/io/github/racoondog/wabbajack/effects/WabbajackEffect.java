@@ -26,7 +26,7 @@ public abstract class WabbajackEffect {
         WabbajackProjectileEntity entity = ProjectileEntity.spawnWithVelocity(WabbajackProjectileEntity::new, world, stack, user, 0.0F, projectileSettings.power(), projectileSettings.uncertainty());
         entity.effect = this;
 
-        world.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        world.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
     }
 
     public void onDispense(ServerWorld world, Direction direction, Position position, ItemStack stack) {

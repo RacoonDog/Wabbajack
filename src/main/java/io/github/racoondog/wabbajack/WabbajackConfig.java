@@ -6,6 +6,7 @@ import folk.sisby.kaleido.lib.quiltconfig.api.annotations.DisplayName;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.FloatRange;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.IntegerRange;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Processor;
+import io.github.racoondog.wabbajack.effects.types.MagicMissilesEffect;
 
 @Processor("processor")
 public class WabbajackConfig extends WrappedConfig {
@@ -84,5 +85,11 @@ public class WabbajackConfig extends WrappedConfig {
     public FreezeEffectConfig freezeEffect = new FreezeEffectConfig();
     public static class FreezeEffectConfig implements WrappedConfig.Section {
         public boolean placesBlocks = true;
+    }
+
+    public MagicMissilesEffectConfig magicMissilesEffect = new MagicMissilesEffectConfig();
+    public static class MagicMissilesEffectConfig implements WrappedConfig.Section {
+        public float damage = 5.0f;
+        public int projectiles = 5;
     }
 }

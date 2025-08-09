@@ -3,6 +3,7 @@ package io.github.racoondog.wabbajack;
 import io.github.racoondog.wabbajack.effects.WabbajackEffect;
 import io.github.racoondog.wabbajack.effects.types.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.DispenserBlock;
@@ -32,6 +33,8 @@ public class Wabbajack implements ModInitializer {
 			.register(itemGroup -> itemGroup.addAfter(Items.MACE, ModRegistry.WABBAJACK_ITEM.getDefaultStack()));
 
 		DispenserBlock.registerBehavior(ModRegistry.WABBAJACK_ITEM, new WabbajackDispenserBehavior());
+
+		ServerTickEvents.START_WORLD_TICK.register(MagicMissilesEffect::tick);
 
 		updateEffectPool();
 	}

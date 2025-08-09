@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -22,6 +23,9 @@ public final class ModRegistry {
     public static final Item WABBAJACK_PROJECTILE_ITEM;
     public static final EntityType<WabbajackProjectileEntity> WABBAJACK_PROJECTILE;
     public static final FrostBlock FROST_BLOCK;
+    public static final RegistryKey<DamageType> DISINTEGRATED = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wabbajack.MOD_ID, "disintegrated"));
+    public static final RegistryKey<DamageType> MADNESS = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wabbajack.MOD_ID, "madness"));
+    public static final RegistryKey<DamageType> DISFIGURED = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wabbajack.MOD_ID, "disfigured"));
 
     static {
         Item.Settings wabbajackSettings = new Item.Settings().maxCount(1).rarity(Rarity.EPIC).maxDamage(80).repairable(Items.NETHERITE_INGOT);

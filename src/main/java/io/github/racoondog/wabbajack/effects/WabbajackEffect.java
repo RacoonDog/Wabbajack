@@ -2,11 +2,15 @@ package io.github.racoondog.wabbajack.effects;
 
 import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Tameable;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ProjectileItem;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -47,4 +51,12 @@ public abstract class WabbajackEffect {
     }
 
     public abstract void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster);
+
+    protected static void discard(ServerWorld world, Entity entity, @Nullable RegistryKey<DamageType> damageType) {
+        if (entity instanceof PlayerEntity || entity instanceof Tameable tameable && tameable.getOwnerReference() != null) {
+            entity.damage(world, world.getDamageSources().create(damageType != null ? damageType : ModRegistry.MADNESS), Float.MAX_VALUE);
+        } else {
+            entity.discard();
+        }
+    }
 }

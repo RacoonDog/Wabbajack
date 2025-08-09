@@ -1,6 +1,7 @@
 package io.github.racoondog.wabbajack.effects.types;
 
 import io.github.racoondog.wabbajack.DataTags;
+import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
@@ -36,7 +37,7 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
         if (target instanceof PlayerEntity) return false;
 
-        target.discard();
+        discard(world, target, ModRegistry.DISFIGURED);
         Entity entity = getRandomEntity(world.random, target.getType()).spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
 
         if (entity != null) {

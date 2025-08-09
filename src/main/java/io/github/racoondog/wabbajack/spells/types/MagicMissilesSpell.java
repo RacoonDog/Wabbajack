@@ -1,9 +1,9 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.MagicMissileProjectileEntity;
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.WabbajackEffect;
+import io.github.racoondog.wabbajack.spells.WabbajackSpell;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class MagicMissilesEffect extends WabbajackEffect {
+public class MagicMissilesSpell extends WabbajackSpell {
     private static final WeakHashMap<ServerWorld, List<MagicMissiles>> RUNNING_MAGIC_MISSILES = new WeakHashMap<>();
     private static final ProjectileItem.Settings PROJECTILE_SETTINGS = ProjectileItem.Settings.builder()
         .power(1.5f)
@@ -38,7 +38,7 @@ public class MagicMissilesEffect extends WabbajackEffect {
     public void onItemUse(ServerWorld world, PlayerEntity user, ItemStack stack) {
         world.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
 
-        int missiles = Wabbajack.CONFIG.magicMissilesEffect.projectiles;
+        int missiles = Wabbajack.CONFIG.magicMissilesSpell.projectiles;
         spawnProjectile(world, user, stack);
         if (missiles > 1) {
             RUNNING_MAGIC_MISSILES.computeIfAbsent(world, key -> new ObjectArrayList<>()).add(new MagicMissiles(world, user, stack, missiles - 1));

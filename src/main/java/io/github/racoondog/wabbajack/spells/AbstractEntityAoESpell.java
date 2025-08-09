@@ -1,4 +1,4 @@
-package io.github.racoondog.wabbajack.effects;
+package io.github.racoondog.wabbajack.spells;
 
 import io.github.racoondog.wabbajack.DataTags;
 import io.github.racoondog.wabbajack.ParticleHelper;
@@ -16,7 +16,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.explosion.ExplosionImpl;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractEntityAreaOfEffect extends WabbajackEffect {
+public abstract class AbstractEntityAoESpell extends WabbajackSpell {
     @Override
     public void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster) {
         Entity hit = null;

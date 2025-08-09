@@ -78,7 +78,7 @@ public class MagicMissileProjectileEntity extends ProjectileEntity implements Fl
         Entity target = entityHitResult.getEntity();
 
         DamageSource damageSource = this.getDamageSources().indirectMagic(this, this.getOwner());
-        float damage = Wabbajack.CONFIG.magicMissilesEffect.damage;
+        float damage = Wabbajack.CONFIG.magicMissilesSpell.damage;
 
         if (attacker instanceof LivingEntity livingEntity) {
             livingEntity.onAttacking(target);

@@ -1,11 +1,11 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import io.github.racoondog.wabbajack.DataTags;
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
+public class AttributeScrambleSpell extends AbstractEntityAoESpell {
     @Override
     public ParticleEffect getParticleEffect() {
         return new DustParticleEffect(Colors.LIGHT_PINK, 1f);
@@ -41,14 +41,14 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        int attributes = Wabbajack.CONFIG.attributeScrambleEffect.attributes;
+        int attributes = Wabbajack.CONFIG.attributeScrambleSpell.attributes;
 
         HashMultimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> modifiers = HashMultimap.create(attributes, 1);
         for (RegistryEntry<EntityAttribute> attribute : getRandomAttributes(world.random, attributes)) {
             if (target.getAttributes().hasAttribute(attribute)) {
                 modifiers.put(attribute, new EntityAttributeModifier(
                     Identifier.of(Wabbajack.MOD_ID, "attribute_scrambling"),
-                    world.random.nextDouble() * Wabbajack.CONFIG.attributeScrambleEffect.magnitude * (world.random.nextBoolean() ? 1 : -1),
+                    world.random.nextDouble() * Wabbajack.CONFIG.attributeScrambleSpell.magnitude * (world.random.nextBoolean() ? 1 : -1),
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                 ));
             }

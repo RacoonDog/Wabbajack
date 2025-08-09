@@ -1,8 +1,8 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.WabbajackEffect;
+import io.github.racoondog.wabbajack.spells.WabbajackSpell;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
-public class ThunderboltEffect extends WabbajackEffect {
+public class ThunderboltSpell extends WabbajackSpell {
     @Override
     public void onProjectileCollision(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, @Nullable LivingEntity caster) {
         float aoe = Wabbajack.CONFIG.aoeSize;

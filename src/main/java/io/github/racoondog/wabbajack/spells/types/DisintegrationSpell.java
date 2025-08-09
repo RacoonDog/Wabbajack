@@ -1,35 +1,34 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
+import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class HealEffect extends AbstractEntityAreaOfEffect {
+public class DisintegrationSpell extends AbstractEntityAoESpell {
+
     @Override
     public ParticleEffect getParticleEffect() {
-        return new DustParticleEffect(Colors.YELLOW, 1f);
+        return ParticleTypes.SMOKE;
     }
 
     @Override
     public @Nullable SoundEvent getSound() {
-        return SoundEvents.ENTITY_GENERIC_EAT.value();
+        return SoundEvents.ENTITY_BREEZE_DEATH;
     }
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        target.heal(5f);
-
-        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.HEART);
+        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ASH);
+        discard(world, target, world.random.nextBoolean() ? ModRegistry.DISINTEGRATED : ModRegistry.MADNESS);
         return true;
     }
 }

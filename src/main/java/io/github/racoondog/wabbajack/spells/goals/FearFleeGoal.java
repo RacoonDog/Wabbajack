@@ -1,4 +1,4 @@
-package io.github.racoondog.wabbajack.effects.goals;
+package io.github.racoondog.wabbajack.spells.goals;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.FleeEntityGoal;

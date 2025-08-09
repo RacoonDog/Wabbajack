@@ -1,7 +1,7 @@
 package io.github.racoondog.wabbajack;
 
-import io.github.racoondog.wabbajack.effects.WabbajackEffect;
-import io.github.racoondog.wabbajack.effects.types.*;
+import io.github.racoondog.wabbajack.spells.WabbajackSpell;
+import io.github.racoondog.wabbajack.spells.types.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -23,7 +23,7 @@ public class Wabbajack implements ModInitializer {
 		MOD_ID,
 		WabbajackConfig.class
 	);
-	public static Pool<WabbajackEffect> EFFECTS;
+	public static Pool<WabbajackSpell> SPELLS;
 
 	@Override
 	public void onInitialize() {
@@ -34,48 +34,48 @@ public class Wabbajack implements ModInitializer {
 
 		DispenserBlock.registerBehavior(ModRegistry.WABBAJACK_ITEM, new WabbajackDispenserBehavior());
 
-		ServerTickEvents.START_WORLD_TICK.register(MagicMissilesEffect::tick);
+		ServerTickEvents.START_WORLD_TICK.register(MagicMissilesSpell::tick);
 
-		updateEffectPool();
+		updateSpellPool();
 	}
 
-	public static void updateEffectPool() {
-		Pool.Builder<WabbajackEffect> builder = Pool.builder();
+	public static void updateSpellPool() {
+		Pool.Builder<WabbajackSpell> builder = Pool.builder();
 
-		if (CONFIG.effectToggles.attributeScramble) builder.add(new AttributeScrambleEffect(), CONFIG.effectWeights.attributeScramble);
-		if (CONFIG.effectToggles.disintegration) builder.add(new DisintegrationEffect(), CONFIG.effectWeights.disintegration);
-		if (CONFIG.effectToggles.fear) builder.add(new FearEffect(), CONFIG.effectWeights.fear);
-		if (CONFIG.effectToggles.fireball) builder.add(new FireballEffect(), CONFIG.effectWeights.fireball);
-		if (CONFIG.effectToggles.freeze) builder.add(new FreezeEffect(), CONFIG.effectWeights.freeze);
-		if (CONFIG.effectToggles.frenzy) builder.add(new FrenzyEffect(), CONFIG.effectWeights.frenzy);
-		if (CONFIG.effectToggles.fury) builder.add(new FuryEffect(), CONFIG.effectWeights.fury);
-		if (CONFIG.effectToggles.heal) builder.add(new HealEffect(), CONFIG.effectWeights.heal);
-		if (CONFIG.effectToggles.magicMissiles) builder.add(new MagicMissilesEffect(), CONFIG.effectWeights.magicMissiles);
-		if (CONFIG.effectToggles.teleportation) builder.add(new TeleportationEffect(), CONFIG.effectWeights.teleportation);
-		if (CONFIG.effectToggles.thunderbolt) builder.add(new ThunderboltEffect(), CONFIG.effectWeights.thunderbolt);
-		if (CONFIG.effectToggles.transformation) builder.add(new TransformationEffect(), CONFIG.effectWeights.transformation);
+		if (CONFIG.spellToggles.attributeScramble) builder.add(new AttributeScrambleSpell(), CONFIG.spellWeights.attributeScramble);
+		if (CONFIG.spellToggles.disintegration) builder.add(new DisintegrationSpell(), CONFIG.spellWeights.disintegration);
+		if (CONFIG.spellToggles.fear) builder.add(new FearSpell(), CONFIG.spellWeights.fear);
+		if (CONFIG.spellToggles.fireball) builder.add(new FireballSpell(), CONFIG.spellWeights.fireball);
+		if (CONFIG.spellToggles.freeze) builder.add(new FreezeSpell(), CONFIG.spellWeights.freeze);
+		if (CONFIG.spellToggles.frenzy) builder.add(new FrenzySpell(), CONFIG.spellWeights.frenzy);
+		if (CONFIG.spellToggles.fury) builder.add(new FurySpell(), CONFIG.spellWeights.fury);
+		if (CONFIG.spellToggles.heal) builder.add(new HealSpell(), CONFIG.spellWeights.heal);
+		if (CONFIG.spellToggles.magicMissiles) builder.add(new MagicMissilesSpell(), CONFIG.spellWeights.magicMissiles);
+		if (CONFIG.spellToggles.teleportation) builder.add(new TeleportationSpell(), CONFIG.spellWeights.teleportation);
+		if (CONFIG.spellToggles.thunderbolt) builder.add(new ThunderboltSpell(), CONFIG.spellWeights.thunderbolt);
+		if (CONFIG.spellToggles.transformation) builder.add(new TransformationSpell(), CONFIG.spellWeights.transformation);
 
-		EFFECTS = builder.build();
+		SPELLS = builder.build();
 	}
 
-	public static WabbajackEffect getEffect(World world, boolean hasCaster) {
+	public static WabbajackSpell getSpell(World world, boolean hasCaster) {
 		if (hasCaster) {
-			return EFFECTS.get(world.random);
+			return SPELLS.get(world.random);
 		} else {
-			int maxDepth = Math.max(10, EFFECTS.getEntries().size() * 2);
+			int maxDepth = Math.max(10, SPELLS.getEntries().size() * 2);
 
-			WabbajackEffect effect;
+			WabbajackSpell spell;
 			int depth = 0;
 			do {
-				effect = EFFECTS.get(world.random);
+				spell = SPELLS.get(world.random);
 				depth++;
-			} while (effect.requiresCaster() && depth < 10);
+			} while (spell.requiresCaster() && depth < 10);
 
 			if (depth == maxDepth) {
-				LOGGER.warn("No valid The Wabbajack! effects matching config.");
+				LOGGER.warn("No valid The Wabbajack! spells matching config.");
 			}
 
-			return effect;
+			return spell;
 		}
 	}
 }

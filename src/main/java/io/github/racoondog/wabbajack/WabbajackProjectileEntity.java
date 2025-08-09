@@ -1,6 +1,6 @@
 package io.github.racoondog.wabbajack;
 
-import io.github.racoondog.wabbajack.effects.WabbajackEffect;
+import io.github.racoondog.wabbajack.spells.WabbajackSpell;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -18,11 +18,11 @@ import net.minecraft.world.World;
 
 public class WabbajackProjectileEntity extends ProjectileEntity implements FlyingItemEntity {
     private static final DustParticleEffect TRAIL_EFFECT = new DustParticleEffect(Colors.RED, 1f);
-    public WabbajackEffect effect;
+    public WabbajackSpell spell;
 
     public WabbajackProjectileEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
-        this.effect = Wabbajack.getEffect(world, false);
+        this.spell = Wabbajack.getSpell(world, false);
     }
 
     public WabbajackProjectileEntity(World world, double posX, double posY, double posZ) {
@@ -73,7 +73,7 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
         super.onCollision(hitResult);
 
         if (this.getWorld() instanceof ServerWorld serverWorld) {
-            this.effect.onProjectileCollision(serverWorld, this, hitResult, (LivingEntity) this.getOwner());
+            this.spell.onProjectileCollision(serverWorld, this, hitResult, (LivingEntity) this.getOwner());
 
             this.discard();
         }

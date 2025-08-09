@@ -1,35 +1,35 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
+import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
-import net.minecraft.component.type.ConsumableComponents;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.consume.ConsumeEffect;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class TeleportationEffect extends AbstractEntityAreaOfEffect {
+public class HealSpell extends AbstractEntityAoESpell {
     @Override
     public ParticleEffect getParticleEffect() {
-        return ParticleTypes.PORTAL;
+        return new DustParticleEffect(Colors.YELLOW, 1f);
     }
 
     @Override
     public @Nullable SoundEvent getSound() {
-        return SoundEvents.ENTITY_PLAYER_TELEPORT;
+        return SoundEvents.ENTITY_GENERIC_EAT.value();
     }
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        for (ConsumeEffect effect : ConsumableComponents.CHORUS_FRUIT.onConsumeEffects()) {
-            effect.onConsume(world, null, target);
-        }
+        target.heal(5f);
 
+        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.HEART);
         return true;
     }
 }

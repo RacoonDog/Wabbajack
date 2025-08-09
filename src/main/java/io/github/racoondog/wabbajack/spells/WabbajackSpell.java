@@ -1,4 +1,4 @@
-package io.github.racoondog.wabbajack.effects;
+package io.github.racoondog.wabbajack.spells;
 
 import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
@@ -19,12 +19,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class WabbajackEffect {
+public abstract class WabbajackSpell {
     public void onItemUse(ServerWorld world, PlayerEntity user, ItemStack stack) {
         ProjectileItem.Settings projectileSettings = ModRegistry.WABBAJACK_ITEM.getProjectileSettings();
 
         WabbajackProjectileEntity entity = ProjectileEntity.spawnWithVelocity(WabbajackProjectileEntity::new, world, stack, user, 0.0F, projectileSettings.power(), projectileSettings.uncertainty());
-        entity.effect = this;
+        entity.spell = this;
 
         world.playSoundFromEntity(null, user, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 1.0F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
     }
@@ -43,7 +43,7 @@ public abstract class WabbajackEffect {
             projectileSettings.uncertainty()
         );
 
-        entity.effect = this;
+        entity.spell = this;
     }
 
     public boolean requiresCaster() {

@@ -1,9 +1,9 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,7 +21,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.Nullable;
 
-public class FreezeEffect extends AbstractEntityAreaOfEffect {
+public class FreezeSpell extends AbstractEntityAoESpell {
     private static final UniformIntProvider FREEZE_DURATION = TimeHelper.betweenSeconds(5, 20);
 
     @Override
@@ -41,7 +41,7 @@ public class FreezeEffect extends AbstractEntityAreaOfEffect {
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, duration, 9, true, false));
         target.setFrozenTicks(duration);
 
-        if (Wabbajack.CONFIG.freezeEffect.placesBlocks) {
+        if (Wabbajack.CONFIG.freezeSpell.placesBlocks) {
             Box box = target.getBoundingBox();
 
             BlockPos.Mutable mutable = new BlockPos.Mutable();

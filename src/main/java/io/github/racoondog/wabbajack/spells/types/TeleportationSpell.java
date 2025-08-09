@@ -1,10 +1,10 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
-import io.github.racoondog.wabbajack.ModRegistry;
-import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
+import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -13,22 +13,23 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class DisintegrationEffect extends AbstractEntityAreaOfEffect {
-
+public class TeleportationSpell extends AbstractEntityAoESpell {
     @Override
     public ParticleEffect getParticleEffect() {
-        return ParticleTypes.SMOKE;
+        return ParticleTypes.PORTAL;
     }
 
     @Override
     public @Nullable SoundEvent getSound() {
-        return SoundEvents.ENTITY_BREEZE_DEATH;
+        return SoundEvents.ENTITY_PLAYER_TELEPORT;
     }
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ASH);
-        discard(world, target, world.random.nextBoolean() ? ModRegistry.DISINTEGRATED : ModRegistry.MADNESS);
+        for (ConsumeEffect effect : ConsumableComponents.CHORUS_FRUIT.onConsumeEffects()) {
+            effect.onConsume(world, null, target);
+        }
+
         return true;
     }
 }

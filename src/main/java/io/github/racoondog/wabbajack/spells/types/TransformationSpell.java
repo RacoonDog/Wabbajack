@@ -1,10 +1,10 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.DataTags;
 import io.github.racoondog.wabbajack.ModRegistry;
 import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class TransformationEffect extends AbstractEntityAreaOfEffect {
+public class TransformationSpell extends AbstractEntityAoESpell {
     @Override
     public ParticleEffect getParticleEffect() {
         return new DustParticleEffect(Colors.RED, 1f);

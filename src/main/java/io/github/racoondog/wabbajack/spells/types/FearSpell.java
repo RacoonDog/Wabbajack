@@ -1,10 +1,10 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
-import io.github.racoondog.wabbajack.effects.goals.FearFleeGoal;
-import io.github.racoondog.wabbajack.effects.goals.WabbajackGoal;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
+import io.github.racoondog.wabbajack.spells.goals.FearFleeGoal;
+import io.github.racoondog.wabbajack.spells.goals.WabbajackGoal;
 import io.github.racoondog.wabbajack.mixin.MobEntityAccessor;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
@@ -24,7 +24,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.Nullable;
 
-public class FearEffect extends AbstractEntityAreaOfEffect {
+public class FearSpell extends AbstractEntityAoESpell {
     private static final UniformIntProvider AVOID_DURATION = TimeHelper.betweenSeconds(5, 20);
 
     @Override

@@ -1,6 +1,6 @@
 package io.github.racoondog.wabbajack;
 
-import io.github.racoondog.wabbajack.effects.WabbajackEffect;
+import io.github.racoondog.wabbajack.spells.WabbajackSpell;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,8 +59,8 @@ public class WabbajackItem extends Item implements ProjectileItem {
             }
 
             if (world instanceof ServerWorld serverWorld) {
-                WabbajackEffect effect = Wabbajack.getEffect(world, true);
-                effect.onItemUse(serverWorld, playerEntity, stack);
+                WabbajackSpell spell = Wabbajack.getSpell(world, true);
+                spell.onItemUse(serverWorld, playerEntity, stack);
 
                 stack.damage(1, playerEntity);
 
@@ -74,7 +74,7 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (Wabbajack.EFFECTS.isEmpty()) {
+        if (Wabbajack.SPELLS.isEmpty()) {
             return ActionResult.PASS;
         }
 

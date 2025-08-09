@@ -6,14 +6,13 @@ import folk.sisby.kaleido.lib.quiltconfig.api.annotations.DisplayName;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.FloatRange;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.IntegerRange;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Processor;
-import io.github.racoondog.wabbajack.effects.types.MagicMissilesEffect;
 
 @Processor("processor")
 public class WabbajackConfig extends WrappedConfig {
     public void processor(Config.Builder builder) {
         builder.callback(config -> {
             if (Wabbajack.CONFIG != null) {
-                Wabbajack.updateEffectPool();
+                Wabbajack.updateSpellPool();
             }
         });
     }
@@ -27,8 +26,8 @@ public class WabbajackConfig extends WrappedConfig {
     @FloatRange(min = 0.1f, max = 100f)
     public float aoeSize = 3.0f;
 
-    public EffectToggles effectToggles = new EffectToggles();
-    public static class EffectToggles implements WrappedConfig.Section {
+    public SpellToggles spellToggles = new SpellToggles();
+    public static class SpellToggles implements WrappedConfig.Section {
         public boolean attributeScramble = true;
         public boolean disintegration = true;
         public boolean fear = true;
@@ -43,8 +42,8 @@ public class WabbajackConfig extends WrappedConfig {
         public boolean transformation = true;
     }
 
-    public EffectWeights effectWeights = new EffectWeights();
-    public static class EffectWeights implements WrappedConfig.Section {
+    public SpellWeights spellWeights = new SpellWeights();
+    public static class SpellWeights implements WrappedConfig.Section {
         @IntegerRange(min = 1, max = 100)
         public int attributeScramble = 1;
         @IntegerRange(min = 1, max = 100)
@@ -71,24 +70,24 @@ public class WabbajackConfig extends WrappedConfig {
         public int transformation = 1;
     }
 
-    public AttributeScrambleEffectConfig attributeScrambleEffect = new AttributeScrambleEffectConfig();
-    public static class AttributeScrambleEffectConfig implements WrappedConfig.Section {
+    public AttributeScrambleSpellConfig attributeScrambleSpell = new AttributeScrambleSpellConfig();
+    public static class AttributeScrambleSpellConfig implements WrappedConfig.Section {
         public int attributes = 7;
         public double magnitude = 2.0d;
     }
 
-    public FireballEffectConfig fireballEffect = new FireballEffectConfig();
-    public static class FireballEffectConfig implements WrappedConfig.Section {
+    public FireballSpellConfig fireballSpell = new FireballSpellConfig();
+    public static class FireballSpellConfig implements WrappedConfig.Section {
         public float explosionPower = 3.0f;
     }
 
-    public FreezeEffectConfig freezeEffect = new FreezeEffectConfig();
-    public static class FreezeEffectConfig implements WrappedConfig.Section {
+    public FreezeSpellConfig freezeSpell = new FreezeSpellConfig();
+    public static class FreezeSpellConfig implements WrappedConfig.Section {
         public boolean placesBlocks = true;
     }
 
-    public MagicMissilesEffectConfig magicMissilesEffect = new MagicMissilesEffectConfig();
-    public static class MagicMissilesEffectConfig implements WrappedConfig.Section {
+    public MagicMissilesSpellConfig magicMissilesSpell = new MagicMissilesSpellConfig();
+    public static class MagicMissilesSpellConfig implements WrappedConfig.Section {
         public float damage = 5.0f;
         public int projectiles = 5;
     }

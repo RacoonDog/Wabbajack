@@ -1,12 +1,12 @@
-package io.github.racoondog.wabbajack.effects.types;
+package io.github.racoondog.wabbajack.spells.types;
 
 import com.google.common.collect.HashMultimap;
 import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
-import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
-import io.github.racoondog.wabbajack.effects.goals.FrenzyGoal;
-import io.github.racoondog.wabbajack.effects.goals.WabbajackGoal;
+import io.github.racoondog.wabbajack.spells.AbstractEntityAoESpell;
+import io.github.racoondog.wabbajack.spells.goals.FrenzyGoal;
+import io.github.racoondog.wabbajack.spells.goals.WabbajackGoal;
 import io.github.racoondog.wabbajack.mixin.AttributeContainerAccessor;
 import io.github.racoondog.wabbajack.mixin.MobEntityAccessor;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.Nullable;
 
-public class FrenzyEffect extends AbstractEntityAreaOfEffect {
+public class FrenzySpell extends AbstractEntityAoESpell {
     private static final UniformIntProvider FRENZY_DURATION = TimeHelper.betweenSeconds(5, 20);
 
     @Override

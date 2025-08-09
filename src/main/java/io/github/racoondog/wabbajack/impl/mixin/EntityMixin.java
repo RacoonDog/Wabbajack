@@ -16,6 +16,13 @@ public abstract class EntityMixin {
     @Shadow public abstract World getWorld();
     @Shadow protected abstract void tickInVoid();
 
+    /**
+     * Since the {@link io.github.racoondog.wabbajack.impl.spells.AttributeScrambleSpell} can result in entities having
+     * negative gravity and floating upwards, this injection adds a void boundary above the world that only affects
+     * entities with negative gravity.
+     *
+     * @author Crosby
+     */
     @SuppressWarnings("ConstantValue")
     @Inject(method = "attemptTickInVoid", at = @At("TAIL"))
     private void cleanUpSpaceDebris(CallbackInfo ci) {

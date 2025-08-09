@@ -18,6 +18,12 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Since the regular {@link net.minecraft.block.FrostedIceBlock} not only doesn't melt in low light but also leaves
+ * behind water source blocks, I made this much less destructive copy.
+ *
+ * @author Crosby
+ */
 public class FrostBlock extends IceBlock {
     public static final IntProperty AGE = Properties.AGE_3;
 

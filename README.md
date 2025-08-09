@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation("io.github.racoondog:Wabbajack:1.0.0")
+    modImplementation("io.github.racoondog:wabbajack:1.0.0")
 }
 ```
 

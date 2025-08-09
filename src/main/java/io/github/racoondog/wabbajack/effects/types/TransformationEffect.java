@@ -14,6 +14,8 @@ import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -21,6 +23,8 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class TransformationEffect extends AbstractEntityAreaOfEffect {
     @Override
@@ -49,17 +53,17 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     }
 
     private static EntityType<? extends Entity> getRandomEntity(Random random, EntityType<?> current) {
-        EntityType<?> entityType = null;
+        if (Registries.ENTITY_TYPE.iterateEntries(DataTags.CAN_TRANSFORM_INTO) instanceof RegistryEntryList<EntityType<?>> registryEntryList
+            && !(registryEntryList.size() <= 1 && current.isIn(registryEntryList))) { // make sure list does not only contain `current`, or else it would loop infinitely
 
-        int depth = 0;
-        while (entityType == null || !entityType.isIn(DataTags.CAN_TRANSFORM_INTO) || entityType == current) {
-            if (depth++ == 10) {
-                return EntityType.TADPOLE;
-            }
+            Optional<EntityType<? extends Entity>> entry;
+            do {
+                entry = registryEntryList.getRandom(random).map(RegistryEntry::value);
+            } while (entry.isPresent() && entry.get() == current);
 
-            entityType = Registries.ENTITY_TYPE.get(random.nextInt(Registries.ENTITY_TYPE.size()));
+            return entry.isPresent() ? entry.get() : EntityType.TADPOLE;
+        } else {
+            return EntityType.TADPOLE;
         }
-
-        return entityType;
     }
 }

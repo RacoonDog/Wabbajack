@@ -1,11 +1,11 @@
 package io.github.racoondog.wabbajack.effects.types;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 import io.github.racoondog.wabbajack.DataTags;
 import io.github.racoondog.wabbajack.Wabbajack;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -25,8 +25,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
     @Override
@@ -85,20 +85,8 @@ public class AttributeScrambleEffect extends AbstractEntityAreaOfEffect {
             return Registries.ATTRIBUTE.iterateEntries(DataTags.CAN_SCRAMBLE);
         }
 
-        Set<RegistryEntry<EntityAttribute>> set = new ReferenceOpenHashSet<>();
-
-        int depth = 0;
-        while (set.size() < count) {
-            if (depth++ == 10) {
-                break;
-            }
-
-            Optional<RegistryEntry.Reference<EntityAttribute>> entry = Registries.ATTRIBUTE.getEntry(random.nextInt(Registries.ATTRIBUTE.size()));
-            if (entry.isPresent() && entry.get().isIn(DataTags.CAN_SCRAMBLE)) {
-                set.add(entry.get());
-            }
-        }
-
-        return set;
+        List<RegistryEntry<EntityAttribute>> list = Lists.newArrayList(Registries.ATTRIBUTE.iterateEntries(DataTags.CAN_SCRAMBLE));
+        Collections.shuffle(list, java.util.Random.from(random::nextLong));
+        return list.subList(0, count);
     }
 }

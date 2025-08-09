@@ -28,7 +28,7 @@ public class HealSpell extends AbstractEntityAoESpell {
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        target.heal(5f);
+        target.heal(8f);
 
         ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.HEART);
         return true;

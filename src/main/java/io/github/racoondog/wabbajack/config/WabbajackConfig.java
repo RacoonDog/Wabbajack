@@ -1,10 +1,22 @@
 package io.github.racoondog.wabbajack.config;
 
 import folk.sisby.kaleido.api.WrappedConfig;
+import folk.sisby.kaleido.lib.quiltconfig.api.Config;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.DisplayName;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.FloatRange;
+import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Processor;
+import io.github.racoondog.wabbajack.Wabbajack;
 
+@Processor("processor")
 public class WabbajackConfig extends WrappedConfig {
+    public void processor(Config.Builder builder) {
+        builder.callback(config -> {
+            if (Wabbajack.CONFIG != null) {
+                Wabbajack.updateEffectPool();
+            }
+        });
+    }
+
     public boolean cooldown = false;
 
     @DisplayName("Area of Effect Size")

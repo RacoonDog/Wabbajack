@@ -34,12 +34,10 @@ public class Wabbajack implements ModInitializer {
 
 		DispenserBlock.registerBehavior(ModRegistry.WABBAJACK_ITEM, new WabbajackDispenserBehavior());
 
-		CONFIG.registerCallback(cfg -> updateEffectPool());
-
 		updateEffectPool();
 	}
 
-	private void updateEffectPool() {
+	public static void updateEffectPool() {
 		Pool.Builder<WabbajackEffect> builder = Pool.builder();
 
 		if (CONFIG.attributeScrambleEffect.enabled) builder.add(new AttributeScrambleEffect(), CONFIG.attributeScrambleEffect.weight);

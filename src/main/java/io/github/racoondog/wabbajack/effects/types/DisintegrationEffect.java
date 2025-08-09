@@ -1,6 +1,7 @@
 package io.github.racoondog.wabbajack.effects.types;
 
 import io.github.racoondog.wabbajack.ModRegistry;
+import io.github.racoondog.wabbajack.ParticleHelper;
 import io.github.racoondog.wabbajack.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.effects.AbstractEntityAreaOfEffect;
 import net.minecraft.entity.LivingEntity;
@@ -26,6 +27,7 @@ public class DisintegrationEffect extends AbstractEntityAreaOfEffect {
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
+        ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ASH);
         discard(world, target, world.random.nextBoolean() ? ModRegistry.DISINTEGRATED : ModRegistry.MADNESS);
         return true;
     }

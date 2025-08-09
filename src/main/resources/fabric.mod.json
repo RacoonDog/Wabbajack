@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"io.github.racoondog.wabbajack.Wabbajack"
+			"io.github.racoondog.wabbajack.impl.Wabbajack"
 		],
 		"client": [
-			"io.github.racoondog.wabbajack.WabbajackClient"
+			"io.github.racoondog.wabbajack.impl.client.WabbajackClient"
 		]
 	},
 	"mixins": [

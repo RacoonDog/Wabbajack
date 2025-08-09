@@ -79,6 +79,7 @@ public class FrenzyGoal extends Goal implements WabbajackGoal {
     private void getTarget() {
         this.target = this.mob.getWorld().getOtherEntities(this.mob, this.mob.getBoundingBox().expand(10, 2, 10), LivingEntity.class::isInstance)
             .stream().map(LivingEntity.class::cast)
+            .filter(entity -> !entity.isDead() && !entity.isInvulnerable())
             .reduce((e1, e2) -> TargetUtil.getCloserEntity(this.mob, e1, e2))
             .orElse(null);
     }

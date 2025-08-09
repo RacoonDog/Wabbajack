@@ -1,0 +1,10 @@
+{
+    "item.wabbajack.wabbajack": "Wabajax",
+    "item.wabbajack.wabbajack.desc": "Daydrick artifax",
+    "item.wabbajack.wabbajack_projectile": "Wabajax Ball",
+    "item.wabbajack.magic_missile_projectile": "MAGIC Wabajax Ball",
+    "block.wabbajack.frost": "Cold air",
+    "death.attack.disintegrated": "%1$s wuz desintergated :(",
+    "death.attack.madness": "%1$s went CRAZYYY",
+    "death.attack.disfigured": "%1$s went POOF!!"
+}

@@ -1,0 +1,10 @@
+{
+    "item.wabbajack.wabbajack": "Wabbajack",
+    "item.wabbajack.wabbajack.desc": "Artéfact daedrique",
+    "item.wabbajack.wabbajack_projectile": "Projectile Wabbajack",
+    "item.wabbajack.magic_missile_projectile": "Projectile magique",
+    "block.wabbajack.frost": "Givre",
+    "death.attack.disintegrated": "%1$s a été désintégré(e)",
+    "death.attack.madness": "%1$s a été écrasé(e) par la folie",
+    "death.attack.disfigured": "%1$s a été défiguré(e)"
+}

@@ -53,7 +53,7 @@ public class TransformationEffect extends AbstractEntityAreaOfEffect {
     }
 
     private static EntityType<? extends Entity> getRandomEntity(Random random, EntityType<?> current) {
-        if (Registries.ENTITY_TYPE.iterateEntries(DataTags.CAN_TRANSFORM_INTO) instanceof RegistryEntryList<EntityType<?>> registryEntryList
+        if (Registries.ENTITY_TYPE.iterateEntries(DataTags.CAN_BE_WABBAJACKED) instanceof RegistryEntryList<EntityType<?>> registryEntryList
             && !(registryEntryList.size() <= 1 && current.isIn(registryEntryList))) { // make sure list does not only contain `current`, or else it would loop infinitely
 
             Optional<EntityType<? extends Entity>> entry;

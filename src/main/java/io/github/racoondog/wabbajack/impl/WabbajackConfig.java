@@ -29,6 +29,7 @@ public class WabbajackConfig extends WrappedConfig {
     public SpellToggles spellToggles = new SpellToggles();
     public static class SpellToggles implements WrappedConfig.Section {
         public boolean attributeScramble = true;
+        public boolean confetti = true;
         public boolean disintegration = true;
         public boolean fear = true;
         public boolean fireball = true;
@@ -47,6 +48,8 @@ public class WabbajackConfig extends WrappedConfig {
     public static class SpellWeights implements WrappedConfig.Section {
         @IntegerRange(min = 1, max = 100)
         public int attributeScramble = 1;
+        @IntegerRange(min = 1, max = 100)
+        public int confetti = 1;
         @IntegerRange(min = 1, max = 100)
         public int disintegration = 1;
         @IntegerRange(min = 1, max = 100)

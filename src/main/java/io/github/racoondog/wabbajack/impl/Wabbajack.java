@@ -28,9 +28,9 @@ public class Wabbajack implements ModInitializer {
 		WabbajackConfig.class
 	);
 	public static final List<WabbajackSpell> SPELL_REGISTRY = new ObjectArrayList<>(List.of(
-		new AttributeScrambleSpell(), new DisintegrationSpell(), new FearSpell(), new FireballSpell(),
-		new FreezeSpell(), new FrenzySpell(), new FurySpell(), new HealSpell(), new MagicMissilesSpell(),
-		new TeleportationSpell(), new ThunderboltSpell(), new TransformationSpell()
+		new AttributeScrambleSpell(), new ConfettiSpell(), new DisintegrationSpell(), new FearSpell(),
+		new FireballSpell(), new FreezeSpell(), new FrenzySpell(), new FurySpell(), new HealSpell(),
+		new MagicMissilesSpell(), new TeleportationSpell(), new ThunderboltSpell(), new TransformationSpell()
 	));
 	public static Pool<WabbajackSpell> SPELLS;
 

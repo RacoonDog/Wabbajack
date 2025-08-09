@@ -74,6 +74,10 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        if (Wabbajack.EFFECTS.isEmpty()) {
+            return ActionResult.PASS;
+        }
+
         user.setCurrentHand(hand);
         return ActionResult.CONSUME;
     }

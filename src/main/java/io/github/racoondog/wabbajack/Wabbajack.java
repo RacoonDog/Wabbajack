@@ -23,7 +23,7 @@ public class Wabbajack implements ModInitializer {
 		MOD_ID,
 		WabbajackConfig.class
 	);
-	private static Pool<WabbajackEffect> EFFECTS;
+	public static Pool<WabbajackEffect> EFFECTS;
 
 	@Override
 	public void onInitialize() {
@@ -57,17 +57,23 @@ public class Wabbajack implements ModInitializer {
 	}
 
 	public static WabbajackEffect getEffect(World world, boolean hasCaster) {
-		WabbajackEffect effect;
-		int depth = 0;
-		do {
-			effect = EFFECTS.get(world.random);
-			depth++;
-		} while (effect.requiresCaster() && !hasCaster && depth < 10);
+		if (hasCaster) {
+			return EFFECTS.get(world.random);
+		} else {
+			int maxDepth = Math.max(10, EFFECTS.getEntries().size() * 2);
 
-		if (depth == 10) {
-			LOGGER.warn("No valid The Wabbajack! effects matching config.");
+			WabbajackEffect effect;
+			int depth = 0;
+			do {
+				effect = EFFECTS.get(world.random);
+				depth++;
+			} while (effect.requiresCaster() && depth < 10);
+
+			if (depth == maxDepth) {
+				LOGGER.warn("No valid The Wabbajack! effects matching config.");
+			}
+
+			return effect;
 		}
-
-		return effect;
 	}
 }

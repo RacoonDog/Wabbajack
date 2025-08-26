@@ -46,9 +46,13 @@ public class AttributeScrambleSpell extends AbstractEntityAoESpell {
         HashMultimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> modifiers = HashMultimap.create(attributes, 1);
         for (RegistryEntry<EntityAttribute> attribute : getRandomAttributes(world.random, attributes)) {
             if (target.getAttributes().hasAttribute(attribute)) {
+                double magnitude = Wabbajack.CONFIG.attributeScrambleSpell.magnitude;
+                double multiplier = randomDouble(world.random, 1 / magnitude, magnitude);
+                if (world.random.nextBoolean()) multiplier = -multiplier;
+
                 modifiers.put(attribute, new EntityAttributeModifier(
                     Identifier.of(Wabbajack.MOD_ID, "attribute_scrambling"),
-                    world.random.nextDouble() * Wabbajack.CONFIG.attributeScrambleSpell.magnitude * (world.random.nextBoolean() ? 1 : -1),
+                    multiplier,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                 ));
             }
@@ -88,6 +92,10 @@ public class AttributeScrambleSpell extends AbstractEntityAoESpell {
         List<RegistryEntry<EntityAttribute>> list = Lists.newArrayList(Registries.ATTRIBUTE.iterateEntries(DataTags.CAN_SCRAMBLE));
         Collections.shuffle(list, java.util.Random.from(random::nextLong));
         return list.subList(0, count);
+    }
+
+    private static double randomDouble(Random random, double min, double max) {
+        return random.nextDouble() * (max - min) + min;
     }
 
     @Override

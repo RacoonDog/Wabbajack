@@ -5,6 +5,9 @@
     "item.wabbajack.magic_missile_projectile": "MAGIC Wabajax Ball",
     "block.wabbajack.frost": "Cold air",
     "death.attack.disintegrated": "%1$s wuz desintergated :(",
+    "death.attack.disintegrated.player": "%1$s wuz desintergated by %2$s :(",
     "death.attack.madness": "%1$s went CRAZYYY",
-    "death.attack.disfigured": "%1$s went POOF!!"
+    "death.attack.madness.player": "%1$s went CRAZYYY from %2$s",
+    "death.attack.disfigured": "%1$s went POOF!!",
+    "death.attack.disfigured.player": "%1$s went POOF!! cuz of %2$s"
 }

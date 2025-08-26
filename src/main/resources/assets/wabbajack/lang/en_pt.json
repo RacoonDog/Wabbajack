@@ -5,6 +5,9 @@
     "item.wabbajack.magic_missile_projectile": "Magic Missile Projectile",
     "block.wabbajack.frost": "Brittle frost",
     "death.attack.disintegrated": "%1$s was disintegrated",
+    "death.attack.disintegrated.player": "%1$s was disintegrated by %2$s",
     "death.attack.madness": "%1$s was overwhelmed by madness",
-    "death.attack.disfigured": "%1$s was disfigured"
+    "death.attack.madness.player": "%1$s was overwhelmed by madness while fighting %2$s",
+    "death.attack.disfigured": "%1$s was disfigured",
+    "death.attack.disfigured.player": "%1$s was disfigured by %2$s"
 }

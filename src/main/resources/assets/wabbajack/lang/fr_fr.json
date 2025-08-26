@@ -5,6 +5,9 @@
     "item.wabbajack.magic_missile_projectile": "Projectile magique",
     "block.wabbajack.frost": "Givre",
     "death.attack.disintegrated": "%1$s a été désintégré(e)",
+    "death.attack.disintegrated.player": "%1$s a été désintégré(e) par %2$s",
     "death.attack.madness": "%1$s a été écrasé(e) par la folie",
-    "death.attack.disfigured": "%1$s a été défiguré(e)"
+    "death.attack.madness.player": "%1$s a été écrasé(e) par la folie en combattant %2$s",
+    "death.attack.disfigured": "%1$s a été défiguré(e)",
+    "death.attack.disfigured.player": "%1$s a été défiguré(e) par %2$s"
 }

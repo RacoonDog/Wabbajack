@@ -4,7 +4,9 @@ import io.github.racoondog.wabbajack.impl.DataTags;
 import io.github.racoondog.wabbajack.api.ParticleHelper;
 import io.github.racoondog.wabbajack.impl.Wabbajack;
 import io.github.racoondog.wabbajack.impl.WabbajackProjectileEntity;
+import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
@@ -16,6 +18,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.explosion.ExplosionImpl;
 import net.modfest.fireblanket.Fireblanket;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * A type of {@link WabbajackSpell} that affects entities in an area of effect around where the projectile landed.
@@ -57,7 +61,12 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
         }
 
         // target cant be player, unless pvp or self hit
-        if (entity instanceof PlayerEntity && !selfHit && !Wabbajack.CONFIG.pvp) {
+        // for arealib, both the caster and target need to be in a pvp enabled zone
+        boolean globalPvp = Wabbajack.CONFIG.pvp;
+        boolean pvp = Wabbajack.HAS_AREALIB
+            ? WabbajackAreaComponent.canPvp(entity.getWorld(), entity.getPos()).orElse(globalPvp) && (caster == null || WabbajackAreaComponent.canPvp(caster.getWorld(), caster.getPos()).orElse(globalPvp))
+            : globalPvp;
+        if (entity instanceof PlayerEntity && !selfHit && !pvp) {
             return false;
         }
 
@@ -67,11 +76,18 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
         }
 
         // target has to be wabbajackable, unless self hit
-        if (!entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && !selfHit) {
-            return false;
-        }
+        if (selfHit) return true;
 
-        return true;
+        if (Wabbajack.HAS_AREALIB) {
+            Set<EntityType<?>> canBeWabbajacked = WabbajackAreaComponent.canBeWabbajacked(entity.getWorld(), entity.getPos());
+            if (canBeWabbajacked.contains(entity.getType())) {
+                return true;
+            } else {
+                return entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && !WabbajackAreaComponent.cannotBeWabbajacked(entity.getWorld(), entity.getPos()).contains(entity.getType());
+            }
+        } else {
+            return entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED);
+        }
     }
 
     /**

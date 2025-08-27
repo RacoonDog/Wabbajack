@@ -1,6 +1,7 @@
 package io.github.racoondog.wabbajack.impl;
 
 import io.github.racoondog.wabbajack.api.spell.WabbajackSpell;
+import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -79,7 +80,11 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (Wabbajack.SPELLS.isEmpty()) {
+        if (!world.isClient() && Wabbajack.SPELLS.isEmpty()) {
+            return ActionResult.PASS;
+        }
+
+        if (!world.isClient() && Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
             return ActionResult.PASS;
         }
 

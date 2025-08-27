@@ -55,8 +55,10 @@ dependencies {
 	implementation "folk.sisby:kaleido-config:${project.kaleido_version}"
 	include "folk.sisby:kaleido-config:${project.kaleido_version}"
 
+	// Mod Compatibility
 	modCompileOnly "maven.modrinth:losing-my-marbles:0.1.0+build.180-mc1.21.8-fabric"
-	modCompileOnly "net.modfest:fireblanket:0.8.5+toybox-1.21.7"
+	modCompileOnly "net.modfest:fireblanket:0.8.5+toybox-1.21.7" // via maven local
+	modCompileOnly "maven.modrinth:area_lib:0.3.6+1.21.8"
 }
 
 processResources {

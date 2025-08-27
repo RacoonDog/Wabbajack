@@ -1,11 +1,14 @@
 package io.github.racoondog.wabbajack.impl;
 
 import io.github.racoondog.wabbajack.api.spell.WabbajackSpell;
+import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaCommand;
+import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaComponents;
 import io.github.racoondog.wabbajack.impl.compat.losing_my_marbles.MarbleTossConfig;
 import io.github.racoondog.wabbajack.impl.spells.*;
 import io.github.racoondog.wabbajack.impl.compat.losing_my_marbles.MarbleTossSpell;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -30,6 +33,7 @@ public class Wabbajack implements ModInitializer {
 		WabbajackConfig.class
 	);
 	public static final boolean HAS_FIREBLANKET = FabricLoader.getInstance().isModLoaded("fireblanket");
+	public static final boolean HAS_AREALIB = FabricLoader.getInstance().isModLoaded("area_lib");
 	public static final List<WabbajackSpell> SPELL_REGISTRY = new ObjectArrayList<>(List.of(
 		new AttributeScrambleSpell(), new ConfettiSpell(), new DisintegrationSpell(), new FearSpell(),
 		new FireballSpell(), new FreezeSpell(), new FrenzySpell(), new FurySpell(), new HealSpell(),
@@ -48,6 +52,10 @@ public class Wabbajack implements ModInitializer {
 
 		ServerTickEvents.START_WORLD_TICK.register(MagicMissilesSpell::tick);
 
+		CommandRegistrationCallback.EVENT.register(
+			(dispatcher, registryAccess, environment) -> WabbajackCommand.register(dispatcher)
+		);
+
 		if (FabricLoader.getInstance().isModLoaded("losing_my_marbles")) {
 			MarbleTossConfig marbleTossConfig = MarbleTossConfig.createToml(
 				FabricLoader.getInstance().getConfigDir(),
@@ -57,6 +65,10 @@ public class Wabbajack implements ModInitializer {
 			);
 
 			SPELL_REGISTRY.add(new MarbleTossSpell(marbleTossConfig));
+		}
+
+		if (HAS_AREALIB) {
+			WabbajackAreaComponents.initialize();
 		}
 
 		updateSpellPool();

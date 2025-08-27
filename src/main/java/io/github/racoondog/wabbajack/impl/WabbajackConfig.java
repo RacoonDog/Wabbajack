@@ -26,6 +26,9 @@ public class WabbajackConfig extends WrappedConfig {
     @FloatRange(min = 0.1f, max = 100f)
     public float aoeSize = 3.0f;
 
+    @Comment("Whether the area of effect spells should target other players")
+    public boolean pvp = true;
+
     public SpellToggles spellToggles = new SpellToggles();
     public static class SpellToggles implements WrappedConfig.Section {
         public boolean attributeScramble = true;

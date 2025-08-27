@@ -5,7 +5,9 @@ import io.github.racoondog.wabbajack.api.ParticleHelper;
 import io.github.racoondog.wabbajack.impl.Wabbajack;
 import io.github.racoondog.wabbajack.impl.WabbajackProjectileEntity;
 import io.github.racoondog.wabbajack.api.spell.AbstractEntityAoESpell;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -31,6 +33,12 @@ public class DisintegrationSpell extends AbstractEntityAoESpell {
         ParticleHelper.spawnEmotionParticles(world, target, ParticleTypes.ASH);
         discard(world, target, world.random.nextBoolean() ? ModRegistry.DISINTEGRATED : ModRegistry.MADNESS);
         return true;
+    }
+
+    @Override
+    public boolean canAffect(Entity entity, @Nullable LivingEntity caster) {
+        // instakill: target cannot be player, unless self hit
+        return super.canAffect(entity, caster) && (entity == caster || !(entity instanceof PlayerEntity));
     }
 
     @Override

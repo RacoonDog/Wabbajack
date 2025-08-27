@@ -32,8 +32,6 @@ public class TransformationSpell extends AbstractEntityAoESpell {
 
     @Override
     public boolean onEntityEffect(ServerWorld world, WabbajackProjectileEntity projectile, HitResult collision, LivingEntity target, @Nullable LivingEntity caster) {
-        if (target instanceof PlayerEntity) return false;
-
         discard(world, target, ModRegistry.DISFIGURED);
         Entity entity = DataTags.getRandom(Registries.ENTITY_TYPE, DataTags.CAN_BE_WABBAJACKED, world.random, () -> EntityType.TADPOLE.getRegistryEntry(), target.getType().getRegistryEntry()).value()
             .spawn(world, null, target.getBlockPos(), SpawnReason.MOB_SUMMONED, false, false);
@@ -44,6 +42,12 @@ public class TransformationSpell extends AbstractEntityAoESpell {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean canAffect(Entity entity, @Nullable LivingEntity caster) {
+        // instakill: target cannot be player, unless self hit
+        return super.canAffect(entity, caster) && (entity == caster || !(entity instanceof PlayerEntity));
     }
 
     @Override

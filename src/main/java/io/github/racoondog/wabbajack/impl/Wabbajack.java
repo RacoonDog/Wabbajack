@@ -29,6 +29,7 @@ public class Wabbajack implements ModInitializer {
 		MOD_ID,
 		WabbajackConfig.class
 	);
+	public static final boolean HAS_FIREBLANKET = FabricLoader.getInstance().isModLoaded("fireblanket");
 	public static final List<WabbajackSpell> SPELL_REGISTRY = new ObjectArrayList<>(List.of(
 		new AttributeScrambleSpell(), new ConfettiSpell(), new DisintegrationSpell(), new FearSpell(),
 		new FireballSpell(), new FreezeSpell(), new FrenzySpell(), new FurySpell(), new HealSpell(),

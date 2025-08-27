@@ -14,6 +14,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.explosion.ExplosionImpl;
+import net.modfest.fireblanket.Fireblanket;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -32,10 +33,8 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
 
         boolean affected = false;
         for (Entity entity : world.getOtherEntities(projectile, projectile.getBoundingBox().expand(areaSize))) {
-            if (!(entity instanceof LivingEntity livingEntity)
-                || (entity instanceof PlayerEntity && entity != caster)
-                || entity.isInvulnerable()
-                || (!entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && entity != caster)) continue;
+            if (canAffect(entity, caster)) continue;
+            LivingEntity livingEntity = (LivingEntity) entity;
 
             if (entity == hit || (entity.squaredDistanceTo(projectile) < areaSize * areaSize && ExplosionImpl.calculateReceivedDamage(projectile.getPos(), entity) > 0.1f)) {
                 affected |= this.onEntityEffect(world, projectile, collision, livingEntity, caster);
@@ -47,6 +46,32 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
             world.playSound(null, collision.getPos().getX(), collision.getPos().getY(), collision.getPos().getZ(),
                 this.getSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
+    }
+
+    public boolean canAffect(Entity entity, @Nullable LivingEntity caster) {
+        boolean selfHit = entity == caster;
+
+        // target has to be living
+        if (!(entity instanceof LivingEntity)) {
+            return false;
+        }
+
+        // target cant be player, unless pvp or self hit
+        if (entity instanceof PlayerEntity && !selfHit && !Wabbajack.CONFIG.pvp) {
+            return false;
+        }
+
+        // target cant be invulnerable, unless fireblanket in which case all entities are invulnerable
+        if (entity.isInvulnerable() && !Wabbajack.HAS_FIREBLANKET && !entity.getWorld().getServer().getGameRules().getBoolean(Fireblanket.NEW_ENTITIES_IMMUTABLE)) {
+            return false;
+        }
+
+        // target has to be wabbajackable, unless self hit
+        if (!entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && !selfHit) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

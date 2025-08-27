@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        "wabbajack:wabbajack_projectile",
+        "wabbajack:magic_missile_projectile"
+    ]
+}

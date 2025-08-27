@@ -18,7 +18,7 @@ public class MarbleTossConfig extends WrappedConfig {
     }
 
     @Comment("Whether the Marble Toss spell should be enabled")
-    public boolean enabled;
+    public boolean enabled = true;
     @Comment("Controls the probability of the Marble Toss spell being thrown")
     public int weight = 1;
     @Comment("How many marbles to throw per spell cast")

@@ -14,10 +14,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
+import one.devos.nautical.losing_my_marbles.content.LosingMyMarblesDataComponents;
 import one.devos.nautical.losing_my_marbles.content.LosingMyMarblesEntities;
 import one.devos.nautical.losing_my_marbles.content.LosingMyMarblesRegistries;
 import one.devos.nautical.losing_my_marbles.content.marble.MarbleEntity;
@@ -67,7 +69,10 @@ public class MarbleTossSpell extends WabbajackSpell {
             MarbleEntity marble = new MarbleEntity(
                 LosingMyMarblesEntities.MARBLE,
                 world,
-                new MarbleInstance(DataTags.getRandom(marbleTypeRegistry, CAN_BE_TOSSED, world.random, defaultTypeSupplier, null), ComponentChanges.EMPTY)
+                new MarbleInstance(
+                    DataTags.getRandom(marbleTypeRegistry, CAN_BE_TOSSED, world.random, defaultTypeSupplier, null),
+                    ComponentChanges.builder().add(LosingMyMarblesDataComponents.NO_PICKUP, Unit.INSTANCE).build()
+                )
             );
             marble.setPosition(position.getX(), position.getY(), position.getZ());
             marble.setOwner(owner);

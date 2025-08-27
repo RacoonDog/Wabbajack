@@ -1,0 +1,33 @@
+{
+    "replace": false,
+    "values": [
+        "losing_my_marbles:egg/blue",
+        "losing_my_marbles:egg/brown",
+        "losing_my_marbles:egg/egg",
+        "losing_my_marbles:egg/sniffer",
+        "losing_my_marbles:egg/turtle",
+        "losing_my_marbles:glass/glass",
+        "losing_my_marbles:glass/stained",
+        "losing_my_marbles:glass/tinted",
+        "losing_my_marbles:amethyst",
+        "losing_my_marbles:bee_nest",
+        "losing_my_marbles:cactus",
+        "losing_my_marbles:capsule",
+        "losing_my_marbles:dense",
+        "losing_my_marbles:eye_of_ender",
+        "losing_my_marbles:fire_charge",
+        "losing_my_marbles:ice",
+        "losing_my_marbles:melon",
+        "losing_my_marbles:most_magnificent_marble",
+        "losing_my_marbles:paint",
+        "losing_my_marbles:phantom",
+        "losing_my_marbles:pointed_dripstone",
+        "losing_my_marbles:pufferfish",
+        "losing_my_marbles:slime",
+        "losing_my_marbles:snowball",
+        "losing_my_marbles:spherical_cow",
+        "losing_my_marbles:terracotta",
+        "losing_my_marbles:tnt",
+        "losing_my_marbles:wind_charge"
+    ]
+}

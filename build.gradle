@@ -15,6 +15,18 @@ repositories {
 		name = "sleeping town"
 		url = "https://repo.sleeping.town/"
 	}
+
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 loom {
@@ -40,6 +52,8 @@ dependencies {
 
 	implementation "folk.sisby:kaleido-config:${project.kaleido_version}"
 	include "folk.sisby:kaleido-config:${project.kaleido_version}"
+
+	modCompileOnly "maven.modrinth:losing-my-marbles:0.1.0+build.180-mc1.21.8-fabric"
 }
 
 processResources {

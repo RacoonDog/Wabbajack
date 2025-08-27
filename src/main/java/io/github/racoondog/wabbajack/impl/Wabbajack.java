@@ -1,7 +1,9 @@
 package io.github.racoondog.wabbajack.impl;
 
 import io.github.racoondog.wabbajack.api.spell.WabbajackSpell;
+import io.github.racoondog.wabbajack.impl.compat.losing_my_marbles.MarbleTossConfig;
 import io.github.racoondog.wabbajack.impl.spells.*;
+import io.github.racoondog.wabbajack.impl.compat.losing_my_marbles.MarbleTossSpell;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -23,7 +25,7 @@ public class Wabbajack implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final WabbajackConfig CONFIG = WabbajackConfig.createToml(
 		FabricLoader.getInstance().getConfigDir(),
-		"",
+		MOD_ID,
 		MOD_ID,
 		WabbajackConfig.class
 	);
@@ -44,6 +46,17 @@ public class Wabbajack implements ModInitializer {
 		DispenserBlock.registerBehavior(ModRegistry.WABBAJACK_ITEM, new WabbajackDispenserBehavior());
 
 		ServerTickEvents.START_WORLD_TICK.register(MagicMissilesSpell::tick);
+
+		if (FabricLoader.getInstance().isModLoaded("losing_my_marbles")) {
+			MarbleTossConfig marbleTossConfig = MarbleTossConfig.createToml(
+				FabricLoader.getInstance().getConfigDir(),
+				MOD_ID,
+				"marble_toss_spell",
+				MarbleTossConfig.class
+			);
+
+			SPELL_REGISTRY.add(new MarbleTossSpell(marbleTossConfig));
+		}
 
 		updateSpellPool();
 	}

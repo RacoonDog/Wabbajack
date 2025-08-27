@@ -1,7 +1,7 @@
 <div align="center">
     <img src="./src/main/resources/assets/wabbajack/icon.png" alt="Wabbajack mod icon" width="15%" style="image-rendering: pixelated;"/>
     <h1 align="center">The Wabbajack</h1>
-    <i>"And as for you, my little mortal minion... feel free to keep the Wabbajack. As a symbol of my... Oh, just take the damn thing." -Sheorogath, Daedric Prince of Madness</i>
+    <i>"And as for you, my little mortal minion... feel free to keep the Wabbajack. As a symbol of my... Oh, just take the damn thing." -Sheogorath, Daedric Prince of Madness</i>
 </div>
 
 # API

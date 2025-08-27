@@ -33,7 +33,7 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
 
         boolean affected = false;
         for (Entity entity : world.getOtherEntities(projectile, projectile.getBoundingBox().expand(areaSize))) {
-            if (canAffect(entity, caster)) continue;
+            if (!canAffect(entity, caster)) continue;
             LivingEntity livingEntity = (LivingEntity) entity;
 
             if (entity == hit || (entity.squaredDistanceTo(projectile) < areaSize * areaSize && ExplosionImpl.calculateReceivedDamage(projectile.getPos(), entity) > 0.1f)) {

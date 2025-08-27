@@ -15,7 +15,9 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class WabbajackCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("wabbajack").requires(source -> source.hasPermissionLevel(2)).then(literal("list-wabbajackable-entities").executes(ctx -> {
-            MutableText text = Text.literal("The following mobs can be Wabbajacked:");
+            MutableText text = Text.literal("The following mobs can be")
+                .append(Text.literal("Wabbajacked").formatted(Formatting.LIGHT_PURPLE))
+                .append(":");
 
             for (RegistryEntry<EntityType<?>> entityType : Registries.ENTITY_TYPE.iterateEntries(DataTags.CAN_BE_WABBAJACKED)) {
                 text.append(ScreenTexts.LINE_BREAK).append("- ").append(highlight(entityType.getIdAsString()));

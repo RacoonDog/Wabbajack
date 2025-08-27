@@ -9,5 +9,7 @@
     "death.attack.madness": "%1$s was overwhelmed by madness",
     "death.attack.madness.player": "%1$s was overwhelmed by madness while fighting %2$s",
     "death.attack.disfigured": "%1$s was disfigured",
-    "death.attack.disfigured.player": "%1$s was disfigured by %2$s"
+    "death.attack.disfigured.player": "%1$s was disfigured by %2$s",
+    "actionbar.wabbajack.title": "The Wabbajack!",
+    "actionbar.wabbajack.disabled": "A mystical power is preventing you from using %1$s"
 }

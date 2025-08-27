@@ -9,5 +9,7 @@
     "death.attack.madness": "%1$s a été écrasé(e) par la folie",
     "death.attack.madness.player": "%1$s a été écrasé(e) par la folie en combattant %2$s",
     "death.attack.disfigured": "%1$s a été défiguré(e)",
-    "death.attack.disfigured.player": "%1$s a été défiguré(e) par %2$s"
+    "death.attack.disfigured.player": "%1$s a été défiguré(e) par %2$s",
+    "actionbar.wabbajack.title": "Le Wabbajack!",
+    "actionbar.wabbajack.disabled": "Un pouvoir mystique vous empêche d'utiliser %1$s"
 }

@@ -72,6 +72,8 @@ public class Wabbajack implements ModInitializer {
 		}
 
 		updateSpellPool();
+
+		LOGGER.info("[Wabbajack] And as for you, my little mortal minion... feel free to keep the Wabbajack. As a symbol of my... Oh, just take the damn thing.");
 	}
 
 	public static void updateSpellPool() {

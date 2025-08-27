@@ -9,5 +9,7 @@
     "death.attack.madness": "%1$s went CRAZYYY",
     "death.attack.madness.player": "%1$s went CRAZYYY from %2$s",
     "death.attack.disfigured": "%1$s went POOF!!",
-    "death.attack.disfigured.player": "%1$s went POOF!! cuz of %2$s"
+    "death.attack.disfigured.player": "%1$s went POOF!! cuz of %2$s",
+    "actionbar.wabbajack.title": "The Wabbajack!",
+    "actionbar.wabbajack.disabled": "A wacky power is preventing u from using %1$s"
 }

@@ -16,7 +16,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.explosion.ExplosionImpl;
-import net.modfest.fireblanket.Fireblanket;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -70,8 +69,8 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
             return false;
         }
 
-        // target cant be invulnerable, unless fireblanket in which case all entities are invulnerable
-        if (entity.isInvulnerable() && !Wabbajack.HAS_FIREBLANKET && !entity.getWorld().getServer().getGameRules().getBoolean(Fireblanket.NEW_ENTITIES_IMMUTABLE)) {
+        // target cant be invulnerable
+        if (entity.isInvulnerable()) {
             return false;
         }
 

@@ -1,7 +1,6 @@
 package io.github.racoondog.wabbajack.impl;
 
 import io.github.racoondog.wabbajack.api.spell.WabbajackSpell;
-import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaCommand;
 import io.github.racoondog.wabbajack.impl.compat.arealib.WabbajackAreaComponents;
 import io.github.racoondog.wabbajack.impl.compat.losing_my_marbles.MarbleTossConfig;
 import io.github.racoondog.wabbajack.impl.spells.*;
@@ -32,7 +31,6 @@ public class Wabbajack implements ModInitializer {
 		MOD_ID,
 		WabbajackConfig.class
 	);
-	public static final boolean HAS_FIREBLANKET = FabricLoader.getInstance().isModLoaded("fireblanket");
 	public static final boolean HAS_AREALIB = FabricLoader.getInstance().isModLoaded("area_lib");
 	public static final List<WabbajackSpell> SPELL_REGISTRY = new ObjectArrayList<>(List.of(
 		new AttributeScrambleSpell(), new ConfettiSpell(), new DisintegrationSpell(), new FearSpell(),

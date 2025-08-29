@@ -23,7 +23,9 @@ public class WabbajackProjectileEntity extends ProjectileEntity implements Flyin
 
     public WabbajackProjectileEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
-        this.spell = Wabbajack.getSpell(world.random, false);
+        if (!world.isClient()) {
+            this.spell = Wabbajack.getSpell(world.random, false);
+        }
     }
 
     public WabbajackProjectileEntity(World world, double posX, double posY, double posZ) {

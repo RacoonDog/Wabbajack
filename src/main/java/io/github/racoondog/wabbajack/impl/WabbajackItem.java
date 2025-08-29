@@ -67,6 +67,11 @@ public class WabbajackItem extends Item implements ProjectileItem {
             }
 
             if (world instanceof ServerWorld serverWorld) {
+                // could happen if you started charging in an area that did not disable wabbajack
+                if (Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
+                    return false;
+                }
+
                 @Nullable WabbajackSpell spell = Wabbajack.getSpell(world.random, true);
 
                 if (spell == null) {

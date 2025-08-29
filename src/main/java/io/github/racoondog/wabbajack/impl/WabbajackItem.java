@@ -86,6 +86,11 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        if (world.isClient() && Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
+            world.playSoundClient(SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.AMBIENT, 1.0f, 1.0f);
+            return ActionResult.PASS;
+        }
+
         if (user instanceof ServerPlayerEntity serverPlayer && (Wabbajack.SPELLS.isEmpty() || (Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())))) {
             serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                 Text.translatable(
@@ -93,12 +98,16 @@ public class WabbajackItem extends Item implements ProjectileItem {
                     Text.translatable("actionbar.wabbajack.title").formatted(Formatting.LIGHT_PURPLE)
                 ).formatted(Formatting.DARK_PURPLE))
             );
-            serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(
-                Registries.SOUND_EVENT.getEntry(SoundEvents.ENTITY_WARDEN_HEARTBEAT),
-                SoundCategory.AMBIENT,
-                serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(),
-                1.0f, 1.0f, world.getRandom().nextLong()
-            ));
+
+            if (Wabbajack.SPELLS.isEmpty()) {
+                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(
+                    Registries.SOUND_EVENT.getEntry(SoundEvents.ENTITY_WARDEN_HEARTBEAT),
+                    SoundCategory.AMBIENT,
+                    serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(),
+                    1.0f, 1.0f, world.getRandom().nextLong()
+                ));
+            }
+
             return ActionResult.PASS;
         }
 

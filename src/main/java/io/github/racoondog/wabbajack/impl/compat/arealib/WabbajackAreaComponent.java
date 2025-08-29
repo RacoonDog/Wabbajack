@@ -1,5 +1,6 @@
 package io.github.racoondog.wabbajack.impl.compat.arealib;
 
+import dev.doublekekse.area_lib.AreaLib;
 import dev.doublekekse.area_lib.component.AreaDataComponent;
 import dev.doublekekse.area_lib.data.AreaSavedData;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
@@ -69,7 +70,7 @@ public class WabbajackAreaComponent implements AreaDataComponent {
     // helper methods
 
     public static Optional<WabbajackAreaComponent> getArea(World world, Vec3d pos) {
-        return AreaSavedData.getServerData(world.getServer()).findTrackedAreasContaining(world, pos).stream()
+        return AreaLib.getSavedData(world).findTrackedAreasContaining(world, pos).stream()
             .filter(area -> area.has(WabbajackAreaComponents.WABBAJACK_AREA_COMPONENT))
             .min(Comparator.comparingDouble(area -> area.getBoundingBox().getAverageSideLength()))
             .map(area -> area.get(WabbajackAreaComponents.WABBAJACK_AREA_COMPONENT));

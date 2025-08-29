@@ -69,6 +69,8 @@ public class WabbajackItem extends Item implements ProjectileItem {
             if (world instanceof ServerWorld serverWorld) {
                 // could happen if you started charging in an area that did not disable wabbajack
                 if (Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
+                    sendDisabledMessage((ServerPlayerEntity) user);
+                    sendDisabledAudio((ServerPlayerEntity) user);
                     return false;
                 }
 
@@ -91,33 +93,41 @@ public class WabbajackItem extends Item implements ProjectileItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (world.isClient() && Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
-            world.playSoundClient(SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.AMBIENT, 1.0f, 1.0f);
+        if (user instanceof ServerPlayerEntity serverPlayer && Wabbajack.SPELLS.isEmpty()) {
+            sendDisabledMessage(serverPlayer);
+            sendDisabledAudio(serverPlayer);
             return ActionResult.PASS;
         }
 
-        if (user instanceof ServerPlayerEntity serverPlayer && (Wabbajack.SPELLS.isEmpty() || (Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())))) {
-            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                Text.translatable(
-                    "actionbar.wabbajack.disabled",
-                    Text.translatable("actionbar.wabbajack.title").formatted(Formatting.LIGHT_PURPLE)
-                ).formatted(Formatting.DARK_PURPLE))
-            );
-
-            if (Wabbajack.SPELLS.isEmpty()) {
-                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(
-                    Registries.SOUND_EVENT.getEntry(SoundEvents.ENTITY_WARDEN_HEARTBEAT),
-                    SoundCategory.AMBIENT,
-                    serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(),
-                    1.0f, 1.0f, world.getRandom().nextLong()
-                ));
+        if (Wabbajack.HAS_AREALIB && WabbajackAreaComponent.shouldDisableWabbajack(world, user.getPos())) {
+            if (user instanceof ServerPlayerEntity serverPlayer) {
+                sendDisabledMessage(serverPlayer);
+            } else {
+                world.playSoundClient(SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.AMBIENT, 1.0f, 1.0f);
             }
-
             return ActionResult.PASS;
         }
 
         user.setCurrentHand(hand);
         return ActionResult.CONSUME;
+    }
+
+    private static void sendDisabledMessage(ServerPlayerEntity serverPlayer) {
+        serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+            Text.translatable(
+                "actionbar.wabbajack.disabled",
+                Text.translatable("actionbar.wabbajack.title").formatted(Formatting.LIGHT_PURPLE)
+            ).formatted(Formatting.DARK_PURPLE))
+        );
+    }
+
+    private static void sendDisabledAudio(ServerPlayerEntity serverPlayer) {
+        serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(
+            Registries.SOUND_EVENT.getEntry(SoundEvents.ENTITY_WARDEN_HEARTBEAT),
+            SoundCategory.AMBIENT,
+            serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(),
+            1.0f, 1.0f, serverPlayer.getWorld().getRandom().nextLong()
+        ));
     }
 
     @Override

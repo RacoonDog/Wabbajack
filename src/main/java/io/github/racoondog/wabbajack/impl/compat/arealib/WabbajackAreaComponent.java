@@ -68,26 +68,42 @@ public class WabbajackAreaComponent implements AreaDataComponent {
 
     // helper methods
 
-    private static Optional<WabbajackAreaComponent> getArea(World world, Vec3d pos) {
+    public static Optional<WabbajackAreaComponent> getArea(World world, Vec3d pos) {
         return AreaSavedData.getServerData(world.getServer()).findTrackedAreasContaining(world, pos).stream()
             .filter(area -> area.has(WabbajackAreaComponents.WABBAJACK_AREA_COMPONENT))
             .min(Comparator.comparingDouble(area -> area.getBoundingBox().getAverageSideLength()))
             .map(area -> area.get(WabbajackAreaComponents.WABBAJACK_AREA_COMPONENT));
     }
 
-    public static boolean shouldDisableWabbajack(World world, Vec3d pos) {
-        return getArea(world, pos).map(component -> component.disabled).orElse(false);
+    public static boolean shouldDisableWabbajack(Optional<WabbajackAreaComponent> optional) {
+        return optional.map(component -> component.disabled).orElse(false);
     }
 
-    public static TriState canPvp(World world, Vec3d pos) {
-        return getArea(world, pos).map(component -> component.pvp).orElse(TriState.DEFAULT);
+    public static boolean shouldDisableWabbajack(World world, Vec3d pos) {
+        return shouldDisableWabbajack(getArea(world, pos));
+    }
+
+    public static boolean canPvp(Optional<WabbajackAreaComponent> optional, boolean fallback) {
+        return optional.map(component -> component.pvp).orElse(TriState.DEFAULT).orElse(fallback);
+    }
+
+    public static boolean canPvp(World world, Vec3d pos, boolean fallback) {
+        return canPvp(getArea(world, pos), fallback);
+    }
+
+    public static Set<EntityType<?>> canBeWabbajacked(Optional<WabbajackAreaComponent> optional) {
+        return optional.map(component -> component.canBeWabbajacked).orElse(Set.of());
     }
 
     public static Set<EntityType<?>> canBeWabbajacked(World world, Vec3d pos) {
-        return getArea(world, pos).map(component -> component.canBeWabbajacked).orElse(Set.of());
+        return canBeWabbajacked(getArea(world, pos));
+    }
+
+    public static Set<EntityType<?>> cannotBeWabbajacked(Optional<WabbajackAreaComponent> optional) {
+        return optional.map(component -> component.cannotBeWabbajacked).orElse(Set.of());
     }
 
     public static Set<EntityType<?>> cannotBeWabbajacked(World world, Vec3d pos) {
-        return getArea(world, pos).map(component -> component.cannotBeWabbajacked).orElse(Set.of());
+        return cannotBeWabbajacked(getArea(world, pos));
     }
 }

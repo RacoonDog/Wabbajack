@@ -18,6 +18,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.explosion.ExplosionImpl;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -59,11 +60,12 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
             return false;
         }
 
+        Optional<WabbajackAreaComponent> component = Optional.empty();
         // target cant be player, unless pvp or self hit
         // for arealib, both the caster and target need to be in a pvp enabled zone
         boolean globalPvp = Wabbajack.CONFIG.pvp;
         boolean pvp = Wabbajack.HAS_AREALIB
-            ? WabbajackAreaComponent.canPvp(entity.getWorld(), entity.getPos()).orElse(globalPvp) && (caster == null || WabbajackAreaComponent.canPvp(caster.getWorld(), caster.getPos()).orElse(globalPvp))
+            ? WabbajackAreaComponent.canPvp(component = WabbajackAreaComponent.getArea(entity.getWorld(), entity.getPos()), globalPvp) && (caster == null || WabbajackAreaComponent.canPvp(caster.getWorld(), caster.getPos(), globalPvp))
             : globalPvp;
         if (entity instanceof PlayerEntity && !selfHit && !pvp) {
             return false;
@@ -78,11 +80,11 @@ public abstract class AbstractEntityAoESpell extends WabbajackSpell {
         if (selfHit) return true;
 
         if (Wabbajack.HAS_AREALIB) {
-            Set<EntityType<?>> canBeWabbajacked = WabbajackAreaComponent.canBeWabbajacked(entity.getWorld(), entity.getPos());
+            Set<EntityType<?>> canBeWabbajacked = WabbajackAreaComponent.canBeWabbajacked(component);
             if (canBeWabbajacked.contains(entity.getType())) {
                 return true;
             } else {
-                return entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && !WabbajackAreaComponent.cannotBeWabbajacked(entity.getWorld(), entity.getPos()).contains(entity.getType());
+                return entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED) && !WabbajackAreaComponent.cannotBeWabbajacked(component).contains(entity.getType());
             }
         } else {
             return entity.getType().isIn(DataTags.CAN_BE_WABBAJACKED);

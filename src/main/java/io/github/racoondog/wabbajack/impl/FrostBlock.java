@@ -34,12 +34,12 @@ public class FrostBlock extends IceBlock {
 
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        world.scheduleBlockTick(pos, this, MathHelper.nextInt(world.getRandom(), 60, 120));
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(world.getRandom(), 30, 60));
     }
 
     @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if ((random.nextInt(3) == 0 || this.canMelt(world, pos, 4))
+        if ((random.nextInt(2) == 0 || this.canMelt(world, pos, 4))
             && this.increaseAge(state, world, pos)) {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
 
@@ -47,11 +47,11 @@ public class FrostBlock extends IceBlock {
                 mutable.set(pos, direction);
                 BlockState blockState = world.getBlockState(mutable);
                 if (blockState.isOf(this) && !this.increaseAge(blockState, world, mutable)) {
-                    world.scheduleBlockTick(mutable, this, MathHelper.nextInt(random, 20, 40));
+                    world.scheduleBlockTick(mutable, this, MathHelper.nextInt(random, 5, 20));
                 }
             }
         } else {
-            world.scheduleBlockTick(pos, this, MathHelper.nextInt(random, 20, 40));
+            world.scheduleBlockTick(pos, this, MathHelper.nextInt(random, 10, 20));
         }
     }
 
